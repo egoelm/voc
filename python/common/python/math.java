@@ -38,10 +38,13 @@ public class math extends org.python.types.Module {
         return org.python.types.Int.getInt(4);
     }
     @org.python.Method(
-         __doc__ = "TODO"
+         __doc__ = "TODO",
+         
+         args = {"number"}
     )
-    public static org.python.Object fabs() {
-        return org.python.types.Int.getInt(4);
+    public static org.python.Object fabs(org.python.Object number) {
+      return number;
     }
-    
+
+
 }
