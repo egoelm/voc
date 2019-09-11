@@ -15,6 +15,7 @@ class MathModuleTests(TranspileTestCase):
             print(math.floor(True))
             print(math.floor(False))
             print(math.floor(-1))
+            print(math.floor(float(32.3)))
             """)
     
     @expectedFailure
@@ -24,3 +25,9 @@ class MathModuleTests(TranspileTestCase):
             print(math.floor("string input"))
             print(math.floor([]))
             """)        
+    @expectedFailure
+    def test_ceil_expectedFailure2(self):
+        self.assertCodeExecution("""
+            import math
+            print(math.floor())
+            """)
