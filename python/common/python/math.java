@@ -53,11 +53,26 @@ public class math extends org.python.types.Module {
         throw new org.python.exceptions.TypeError("must be real number, not "+ number.typeName());
 
     }
+
     @org.python.Method(
-         __doc__ = "TODO"
+         __doc__ = "TODO",
+
+         args = {"number"}
     )
-    public static org.python.Object fabs() {
-        return org.python.types.Int.getInt(4);
+    public static org.python.Object fabs(org.python.Object number) {
+      if(number instanceof org.python.types.Float){
+        double val = ((org.python.types.Float) number).value;
+        ((org.python.types.Float) number).value = Math.abs(val);
+        return number;
+      }
+      else if(number instanceof org.python.types.Int){
+        long val = ((org.python.types.Int) number).value;
+        ((org.python.types.Int) number).value = Math.abs(val);
+        return number;
+      }
+      else{
+        throw new org.python.exceptions.TypeError("Must be real number, not "+ number.typeName());
+      }
     }
-    
+
 }
