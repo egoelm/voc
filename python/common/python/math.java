@@ -32,10 +32,26 @@ public class math extends org.python.types.Module {
     }
 
     @org.python.Method(
-         __doc__ = "TODO"
+         __doc__ = "math.ceil(number) -> number" + 
+                   "\n" +
+                   "Return the cealing of number as float, " + 
+                   "the smallest integer value greater than or equal to number.\n",
+         args = {"number"}
     )
-    public static org.python.Object ceil() {
-        return org.python.types.Int.getInt(4);
+    public static org.python.Object ceil(org.python.Object number) {
+        if (number instanceof org.python.types.Int){
+            return(number);
+        }
+        if (number instanceof org.python.types.Float) {
+            double val = ((org.python.types.Float) number).value; 
+            return org.python.types.Int.getInt((int)Math.ceil(val));
+        } 
+        if (number instanceof org.python.types.Bool) {
+            boolean val = ((org.python.types.Bool) number).value;
+            return org.python.types.Int.getInt(val ? 1 : 0);
+        }
+        throw new org.python.exceptions.TypeError("must be real number, not "+ number.typeName());
+
     }
 
     @org.python.Method(
