@@ -18,7 +18,7 @@ public class datetime extends org.python.types.Module {
     @org.python.Attribute
     public static org.python.Object TimeDelta;
     public static org.python.Object Date;
-    public static org.python.Object TimeDate;
+    public static org.python.Object DateTime;
 
     @org.python.Attribute()
     public static org.python.Object __file__ = new org.python.types.Str("python/common/python/datetime.java");
@@ -36,4 +36,5 @@ public class datetime extends org.python.types.Module {
     public static org.python.Object _bootstrap;
     @org.python.Attribute()
     public static org.python.Object _imp;
+
 }
