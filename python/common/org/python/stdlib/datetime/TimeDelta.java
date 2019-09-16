@@ -7,5 +7,7 @@ package org.python.stdlib.datetime;
 public class TimeDelta extends org.python.types.Module {
     public TimeDelta() {
         super();
+
+        //min = org.python.stdlib.datetime.TimeDelta.min
     }
 	}
