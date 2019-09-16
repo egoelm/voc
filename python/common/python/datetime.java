@@ -32,7 +32,8 @@ public class datetime extends org.python.types.Module {
     public static org.python.Object __path__;
     @org.python.Attribute
     public static org.python.Object __spec__ = org.python.types.NoneType.NONE;  // TODO
-   /* @org.python.Attribute()
+    @org.python.Attribute()
     public static org.python.Object _bootstrap;
     @org.python.Attribute()
-    public static org.python.Object _imp;*/
+    public static org.python.Object _imp;
+}
