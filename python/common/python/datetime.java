@@ -9,29 +9,30 @@ public class datetime extends org.python.types.Module {
         super();
     }
 
-@org.python.Method(
-         __doc__ = "TODO",
-         args = {"time"}
-    )
-    public static org.python.Object timeDelta(org.python.Object time) {
-        
-            return time
-        }
-        
-@org.python.Method(
-         __doc__ = "TODO",
-         args = {"time"}
-    )
-    public static org.python.Object date(org.python.Object time) {
-        
-            return time
-        }
+    static {
+        TimeDelta = org.python.types.Type.pythonType(org.python.stdlib.datetime.TimeDelta.class);
+        Date = org.python.types.Type.pythonType(org.python.stdlib.datetime.Date.class);
+        DateTime = org.python.types.Type.pythonType(org.python.stdlib.datetime.DateTime.class);
+    }
 
-@org.python.Method(
-         __doc__ = "TODO",
-         args = {"time"}
-    )
-    public static org.python.Object dateTime(org.python.Object time) {
-        
-            return time
-        }
+    @org.python.Attribute
+    public static org.python.Object TimeDelta;
+    public static org.python.Object Date;
+    public static org.python.Object TimeDate;
+
+    @org.python.Attribute()
+    public static org.python.Object __file__ = new org.python.types.Str("python/common/python/datetime.java");
+    @org.python.Attribute
+    public static org.python.Object __loader__ = org.python.types.NoneType.NONE;  // TODO
+    @org.python.Attribute
+    public static org.python.Object __name__ = new org.python.types.Str("datetime");
+    @org.python.Attribute
+    public static org.python.Object __package__ = new org.python.types.Str("datetime");
+    @org.python.Attribute()
+    public static org.python.Object __path__;
+    @org.python.Attribute
+    public static org.python.Object __spec__ = org.python.types.NoneType.NONE;  // TODO
+   /* @org.python.Attribute()
+    public static org.python.Object _bootstrap;
+    @org.python.Attribute()
+    public static org.python.Object _imp;*/
