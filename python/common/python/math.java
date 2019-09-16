@@ -40,7 +40,7 @@ public class math extends org.python.types.Module {
             boolean val = ((org.python.types.Bool) number).value;
             return org.python.types.Int.getInt(val ? 1 : 0);
         }
-        throw new org.python.exceptions.TypeError("floor() argument must be real number, not "+ number.typeName());
+        throw new org.python.exceptions.TypeError("must be real number, not "+ number.typeName());
 
     }
 
