@@ -7,7 +7,20 @@ package org.python.stdlib.datetime;
 public class TimeDelta extends org.python.types.Module {
     public TimeDelta() {
         super();
-
-        //min = org.python.stdlib.datetime.TimeDelta.min
     }
-	}
+@org.python.Method(
+         __doc__ = "",
+         args ={"day"}
+    )
+
+public static java.time.Duration days(org.python.Object day) {
+       // if (days instanceof org.python.types.Int){
+
+        long val = ((org.python.types.Int) day).value;
+        //int d = java.time.Duration.ofDays(val);
+        //((org.python.types.Int) days).value = java.time.Duration.ofDays(val);
+        java.time.Duration d = java.time.Duration.ofDays(val);
+        return d;
+          
+        }
+}
