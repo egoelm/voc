@@ -12,13 +12,15 @@ public class datetime extends org.python.types.Module {
     static {
         TimeDelta = org.python.types.Type.pythonType(org.python.stdlib.datetime.TimeDelta.class);
         Date = org.python.types.Type.pythonType(org.python.stdlib.datetime.Date.class);
-        DateTime = org.python.types.Type.pythonType(org.python.stdlib.datetime.DateTime.class);
+        datetime = org.python.types.Type.pythonType(org.python.stdlib.datetime.DateTime.class);
     }
 
     @org.python.Attribute
     public static org.python.Object TimeDelta;
+    @org.python.Attribute
     public static org.python.Object Date;
-    public static org.python.Object DateTime;
+    @org.python.Attribute
+    public static org.python.Object datetime;
 
     @org.python.Attribute()
     public static org.python.Object __file__ = new org.python.types.Str("python/common/python/datetime.java");
@@ -36,5 +38,15 @@ public class datetime extends org.python.types.Module {
     public static org.python.Object _bootstrap;
     @org.python.Attribute()
     public static org.python.Object _imp;
+
+
+    @org.python.Method(
+            __doc__ = "Returns a new subclass of tuple with named fields.\n" +
+                "\n"   
+    )
+
+    public static org.python.Object namedtuple() {
+        throw new org.python.exceptions.NotImplementedError("namedtuple has not been implemented");
+    }
 
 }
