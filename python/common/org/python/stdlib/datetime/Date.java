@@ -9,7 +9,6 @@ public class Date extends org.python.types.Object {
     )
     public Date() {
         super();
-        this.year=
     }
 
     @org.python.Method(
