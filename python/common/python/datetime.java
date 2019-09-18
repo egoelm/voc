@@ -10,16 +10,15 @@ public class datetime extends org.python.types.Module {
     }
 
     static {
-        TimeDelta = org.python.types.Type.pythonType(org.python.stdlib.datetime.TimeDelta.class);
-        Date = org.python.types.Type.pythonType(org.python.stdlib.datetime.Date.class);
-        //datetime = org.python.types.Type.pythonType(org.python.stdlib.datetime.DateTime.class);
-        datetime = new org.python.stdlib.datetime.DateTime(1);
+        timedelta = org.python.types.Type.pythonType(org.python.stdlib.datetime.TimeDelta.class);
+        date = org.python.types.Type.pythonType(org.python.stdlib.datetime.Date.class);
+        datetime = org.python.types.Type.pythonType(org.python.stdlib.datetime.DateTime.class);
     }
 
     @org.python.Attribute
-    public static org.python.Object TimeDelta;
+    public static org.python.Object timedelta;
     @org.python.Attribute
-    public static org.python.Object Date;
+    public static org.python.Object date;
     @org.python.Attribute
     public static org.python.Object datetime;
 
