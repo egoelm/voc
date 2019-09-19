@@ -1,25 +1,12 @@
 package org.python.stdlib.datetime;
 
-import java.time.Year;
-
-@org.python.Module(
-        __doc__ =
-                "TODO"
-)
 public class Date extends org.python.types.Object {
-    
-    // @org.python.Method(
-    //     __doc__ = "",
-    //     args={"year", "month", "day"}
-
-    // )
-    public Date( org.python.types.Object year, org.python.types.Object  month, org.python.types.Object day) {
-     super();   
-    }
+    private org.python.Object year;
+    private org.python.Object month;
+    private org.python.Object day;
 
     @org.python.Method(
-        __doc__ = "",
-        args = {"n"}
+        __doc__ = ""
     )
     public Date(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs)  { //gets kwargs to get by keyword yr,month
 
@@ -36,9 +23,6 @@ public class Date extends org.python.types.Object {
                         if (1d <= ((org.python.types.Int) args[2]).value && ((org.python.types.Int) args[2]).value <= 31d) {
                             //TODO check leap year (so max day=29 for month=2),
                             // and correct max no. of days for each month
-                            //double val0 =  ((org.python.types.Float)args[0]).value;
-                            //double val1 =  ((org.python.types.Float)args[1]).value;
-                            //double val2 =  ((org.python.types.Float)args[2]).value;
                             this.year = args[0];
                             this.month = args[1];
                             this.day = args[2];
@@ -91,6 +75,7 @@ public class Date extends org.python.types.Object {
 
 
     }
+
     @org.python.Method(
             __doc__ = "Stringifies the object to be printed out"
     )

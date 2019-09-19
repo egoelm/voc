@@ -25,10 +25,23 @@ public class math extends org.python.types.Module {
 
 
     @org.python.Method(
-         __doc__ = "TODO"
+         __doc__ = "",
+         args ={"number"}
     )
-    public static org.python.Object floor() {
-        return org.python.types.Int.getInt(4);
+    public static org.python.Object floor(org.python.Object number) {
+        if (number instanceof org.python.types.Int){
+            return(number);
+        }
+        if (number instanceof org.python.types.Float) {
+            double val = ((org.python.types.Float) number).value;
+            return org.python.types.Int.getInt((int)Math.floor(val));
+        }
+        if (number instanceof org.python.types.Bool) {
+            boolean val = ((org.python.types.Bool) number).value;
+            return org.python.types.Int.getInt(val ? 1 : 0);
+        }
+        throw new org.python.exceptions.TypeError("must be real number, not "+ number.typeName());
+
     }
 
     @org.python.Method(
