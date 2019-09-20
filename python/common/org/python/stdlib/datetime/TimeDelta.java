@@ -5,8 +5,8 @@ import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardDownRightHandler;
 public class TimeDelta extends org.python.types.Object {
     private org.python.Object days;
     private org.python.Object seconds;
+    private org.python.Object hours;
     private org.python.Object microseconds;
-
 
     @org.python.Method(
         __doc__ = ""
@@ -14,6 +14,7 @@ public class TimeDelta extends org.python.types.Object {
     public TimeDelta(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs)  { //gets kwargs to get by keyword yr,minth
         super();
 
+    
         this.days = kwargs.get("days");
         if (this.days != null && args.length > 0) {
             throw new org.python.exceptions.SyntaxError("positional argument follows keyword argument");
@@ -30,6 +31,7 @@ public class TimeDelta extends org.python.types.Object {
         }
 
         if(!kwargs.isEmpty()){
+
           // A week is converted to 7 days.
           if(kwargs.get("weeks") != null){
             long weeks = ((org.python.types.Int)kwargs.get("weeks")).value;
@@ -53,8 +55,24 @@ public class TimeDelta extends org.python.types.Object {
           long millisecond = ((org.python.types.Int)kwargs.get("millisecond")).value;
           this.microseconds = org.python.types.Int.getInt(millisecond*1000);
           }
+
         }
     }
+    
+
+    public org.python.types.Str __str__() {
+        long dayslong = ((org.python.types.Int)this.days).value;
+        String days = Long.toString(dayslong);
+        /*while (year.length() < 4) {
+            year = "0" + year;
+        }*/
+        long hours = ((org.python.types.Int)this.hours).value;
+       // long seconds = ((org.python.types.Int)this.seconds).value;
+        //long microseconds = ((org.python.types.Int)this.microseconds).value;
+        String returnStr =  "days: " + days + ", hours: " + hours + ", seconds: " + seconds + ", microseconds: " + microseconds;
+        return new org.python.types.Str(returnStr);
+    }
+
 
     @org.python.Method(
         __doc__ = ""
