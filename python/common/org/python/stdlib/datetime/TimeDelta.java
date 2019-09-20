@@ -5,15 +5,30 @@ import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardDownRightHandler;
 public class TimeDelta extends org.python.types.Object {
     private org.python.Object days;
     private org.python.Object seconds;
-    private org.python.Object hours;
+    //private org.python.Object hours;
     private org.python.Object microseconds;
+
+    @org.python.Attribute
+    public static org.python.Object min = org.python.types.Int.getInt(-999999999);
+    //@org.python.Attribute
+    //public static org.python.Object[] max = new ArrayList<org.python.Object>; 
+    /*@org.python.Attribute
+    public static org.python.Object resolution;*/
+
 
     @org.python.Method(
         __doc__ = ""
     )
     public TimeDelta(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs)  { //gets kwargs to get by keyword yr,minth
         super();
+        if(args.length == 0 && kwargs.isEmpty()){
+            this.days = org.python.types.Int.getInt(0);
+            this.seconds = org.python.types.Int.getInt(0);
+            this.microseconds = org.python.types.Int.getInt(0);
+        }
 
+
+        else {
     
         this.days = kwargs.get("days");
         if (this.days != null && args.length > 0) {
@@ -57,22 +72,39 @@ public class TimeDelta extends org.python.types.Object {
           }
 
         }
+    } 
+    }
+    @org.python.Method()
+    public org.python.Object min(){
+        this.days = this.min;
+        String returnStr = ""+ this.days;
+        //return this;
+        return new org.python.types.Str(returnStr);
+
     }
     
+    @org.python.Method()
+    public org.python.Object max(){
+        this.days = this.min;
+        String returnStr = ""+ this.days;
+        //return this;
+        return new org.python.types.Str(returnStr);
 
+    }
     public org.python.types.Str __str__() {
         long dayslong = ((org.python.types.Int)this.days).value;
         String days = Long.toString(dayslong);
         /*while (year.length() < 4) {
             year = "0" + year;
         }*/
-        long hours = ((org.python.types.Int)this.hours).value;
-       // long seconds = ((org.python.types.Int)this.seconds).value;
-        //long microseconds = ((org.python.types.Int)this.microseconds).value;
-        String returnStr =  "days: " + days + ", hours: " + hours + ", seconds: " + seconds + ", microseconds: " + microseconds;
+        //long hours = ((org.python.types.Int)this.hours).value;
+        long seconds = ((org.python.types.Int)this.seconds).value;
+        long microseconds = ((org.python.types.Int)this.microseconds).value;
+        //long printSeconds = seconds % 3600;
+        //long hours = (seconds  - printSeconds)/3600;
+        String returnStr = days +" days, "  + "seconds: " + seconds + ", microseconds: " + microseconds;
         return new org.python.types.Str(returnStr);
     }
-
 
     @org.python.Method(
         __doc__ = ""
