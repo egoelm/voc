@@ -1,5 +1,9 @@
 package org.python.stdlib.datetime;
 
+import java.time.LocalTime;
+
+import org.python.Object;
+
 public class Date extends org.python.types.Object {
     private org.python.Object year;
     private org.python.Object month;
@@ -79,8 +83,7 @@ public class Date extends org.python.types.Object {
     @org.python.Method(
             __doc__ = "Stringifies the object to be printed out"
     )
-    public org.python.types.Str __repr__() {
-
+    public org.python.types.Str __repr__(){
         return new org.python.types.Str(this.year + "-" + this.month + "-" + this.day);
     }
     
@@ -90,5 +93,49 @@ public class Date extends org.python.types.Object {
     //we use this function for testing
     public static org.python.Object constant_4() {
         return org.python.types.Int.getInt(4);
+    }
+
+    @org.python.Method(
+        __doc__ = "Implementation of dates class function today()" + 
+                  "which returns todays date on the form yyyy-mm-dd"
+    )
+    public static org.python.Object today(){
+        java.time.LocalDateTime today = java.time.LocalDateTime.now();
+        String y  = "" + today.getYear();
+        String m = "" + today.getMonthValue();
+        String d   = "" + today.getDayOfMonth();
+        
+        if(m.length() == 1){
+            m = "0"+ m;  
+        }
+        if(d.length() == 1){
+            d = "0"+ d;
+        }
+        return new org.python.types.Str(y + "-" + m + "-" + d);
+    }
+    @org.python.Method(
+        __doc__ = "Implementation of dates class function today()" + 
+                  "which returns todays date on the form yyyy-mm-dd"
+    )
+    public static org.python.Object replace(){
+        java.text.SimpleDateFormat s = new java.text.SimpleDateFormat("EEEE");
+        java.util.Date d = new java.util.Date();
+        return new org.python.types.Str(""+s.format(d));
+    }
+    @org.python.Method(
+        __doc__ = "Implementation of dates class function weekday()" + 
+                  "which returns todays date on the form yyyy-mm-dd"
+    )
+    public org.python.Object weekday(){
+        double y = ((org.python.types.Int) this.year).value;
+        double m = ((org.python.types.Int) this.month).value;
+        double d = ((org.python.types.Int) this.day).value;
+
+        java.util.Date myCalendar = new java.util.GregorianCalendar((int)y, (int)m-1, (int)d).getTime();
+        java.util.Calendar c = java.util.Calendar.getInstance();
+        c.setTime(myCalendar);
+        int day  = c.get(java.util.Calendar.DAY_OF_WEEK);
+        int[] convertToPython = {6,0,1,2,3,4,5};
+        return org.python.types.Int.getInt(convertToPython[day-1]);
     }
 }
