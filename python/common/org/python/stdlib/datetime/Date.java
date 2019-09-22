@@ -229,7 +229,7 @@ public class Date extends org.python.types.Object {
         this.month= org.python.types.NoneType.NONE;
         this.year= org.python.types.NoneType.NONE;
         return this;
-
+    }
     @org.python.Method(
         __doc__ = "Implementation of dates class function today()" + 
                   "which returns todays date on the form yyyy-mm-dd"
