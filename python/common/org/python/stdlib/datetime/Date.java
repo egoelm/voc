@@ -249,17 +249,36 @@ public class Date extends org.python.types.Object {
         return new org.python.types.Str(y + "-" + m + "-" + d);
     }
     @org.python.Method(
-        __doc__ = "Implementation of dates class function today()" + 
-                  "which returns todays date on the form yyyy-mm-dd"
+        __doc__ = "Implementation of date´s instance function ctime() "
     )
-    public static org.python.Object replace(){
+    public org.python.Object ctime(){
+
+        String[] monthList = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+        double monthNum = ((org.python.types.Int)this.month).value;
+        String monthStr = monthList[(int)monthNum-1];
+        
+        String[] weekdayList = {"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
+        double weekdayNum = ((org.python.types.Int)weekday()).value;
+        String weekdayStr = weekdayList[(int)weekdayNum];
+
+        return new org.python.types.Str(weekdayStr + " " + monthStr + " " + this.day + " 00:00:00 " + this.year);
+    }
+    /*@org.python.Method(
+        __doc__ = "Implementation of dates class function replace()" + 
+                  "which returns the date object which is changed depending on arguments"
+        //args = {"args", "kwargs"}          
+    )
+    public static org.python.Object replace(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs){
         java.text.SimpleDateFormat s = new java.text.SimpleDateFormat("EEEE");
         java.util.Date d = new java.util.Date();
         return new org.python.types.Str(""+s.format(d));
-    }
+    }*/
     @org.python.Method(
-        __doc__ = "Implementation of dates class function weekday()" + 
-                  "which returns todays date on the form yyyy-mm-dd"
+        __doc__ = "Implementation of date´s instance function weekday()" + 
+                  "which returns an int representing the weekday of a " + 
+                  "date specified in date object on the form: Monday = 0," + 
+                  "Tuesday = 1, Wednesday = 2, Thursday = 3, Friday = 4," +
+                  "Saturday = 5 and Sunday = 6"
     )
     public org.python.Object weekday(){
         double y = ((org.python.types.Int) this.year).value;
