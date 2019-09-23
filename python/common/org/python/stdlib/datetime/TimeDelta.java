@@ -12,7 +12,7 @@ public class TimeDelta extends org.python.types.Object {
     private org.python.Object microseconds;
 
     @org.python.Attribute
-    public  org.python.Object min = __min__();
+    public static org.python.Object min = org.python.types.Int.getInt(-999999999);
     //@org.python.Attribute
     //public static org.python.Object[] max = new ArrayList<org.python.Object>; 
     /*@org.python.Attribute
@@ -150,13 +150,11 @@ public class TimeDelta extends org.python.types.Object {
     
     }
     @org.python.Method()
-    public  org.python.Object __min__(){
-    org.python.Object[] args = {org.python.types.Int.getInt(-999999999),org.python.types.Int.getInt(0),org.python.types.Int.getInt(0)};
-        //TimeDelta minDate = new TimeDelta(args, Collections.emptyMap());
-        //minDate.days = org.python.types.Int.getInt(-999999999);
-        //String returnStr = ""+ this.days;
-        return new TimeDelta(args, Collections.emptyMap());
-        //return new org.python.types.Str(returnStr);
+    public org.python.Object min(){
+        //int days = org.python.types.Int.getInt(-999999999);
+        org.python.Object[] args = {org.python.types.Int.getInt(-999999999)};
+        TimeDelta minObject = new TimeDelta(args, Collections.emptyMap());
+        return minObject;
 
     }
     
