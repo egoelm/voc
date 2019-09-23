@@ -194,15 +194,26 @@ public class TimeDelta extends org.python.types.Object {
         args = {"other"}
         )
         public org.python.Object __add__(org.python.Object other) {
+            //Days
             long thisDays = ((org.python.types.Int)this.days).value;
-            System.out.println(thisDays);
-            TimeDelta other_ = (org.python.stdlib.datetime.TimeDelta)other;
-            long otherDays = ((org.python.types.Int)other_.days).value;
-            System.out.println(otherDays);
-            long sum = thisDays + otherDays;
-            String returnStr = ("" + sum);
-            System.out.println(returnStr);
-            return new org.python.types.Str(returnStr);
+            TimeDelta otherObject= (org.python.stdlib.datetime.TimeDelta)other;
+            long otherDays = ((org.python.types.Int)otherObject.days).value;
+
+            //Seconds
+            long thisSeconds = ((org.python.types.Int)this.seconds).value;
+            long otherSeconds = ((org.python.types.Int)otherObject.seconds).value;
+
+            //Microseconds
+            long thisMicroseconds = ((org.python.types.Int)this.microseconds).value;
+            long otherMicroSeconds = ((org.python.types.Int)otherObject.microseconds).value;
+
+            long sumDays = thisDays + otherDays;
+            long sumSeconds = thisSeconds + otherSeconds;
+            long sumMicroseconds = thisMicroseconds + otherMicroSeconds;
+
+            org.python.Object[] args = {org.python.types.Int.getInt(sumDays), org.python.types.Int.getInt(sumSeconds), org.python.types.Int.getInt(sumMicroseconds)};
+            TimeDelta TD = new TimeDelta(args, Collections.EMPTY_MAP);
+            return TD;
         }
     public org.python.Object __pos__() {
       return this;
