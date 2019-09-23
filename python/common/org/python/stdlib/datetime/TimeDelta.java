@@ -216,7 +216,23 @@ public class TimeDelta extends org.python.types.Object {
             return TD;
         }
     public org.python.Object __pos__() {
-      return this;
+
+
+      //long thisSeconds = ((org.python.types.Int)this.seconds).value;
+      long otherSeconds = ((org.python.types.Int)this.seconds).value;
+
+            //Microseconds
+      //long thisMicroseconds = ((org.python.types.Int)this.microseconds).value;
+      long otherMicroSeconds = ((org.python.types.Int)this.microseconds).value;
+      long otherDays = ((org.python.types.Int)this.days).value;
+
+            ///long sumDays = thisDays + otherDays;
+            ///long sumSeconds = thisSeconds + otherSeconds;
+            //long sumMicroseconds = thisMicroseconds + otherMicroSeconds;
+
+            org.python.Object[] args = {org.python.types.Int.getInt(otherDays), org.python.types.Int.getInt(otherSeconds), org.python.types.Int.getInt(otherMicroSeconds)};
+            TimeDelta TD = new TimeDelta(args, Collections.EMPTY_MAP);
+      return TD;
         //throw new org.python.exceptions.TypeError("bad operand type for unary +: '" + this.typeName() + "'");
     }
 
