@@ -45,11 +45,20 @@ public class DateTime extends org.python.types.Object {
         if (this.day == null) {
             throw new org.python.exceptions.TypeError("Required argument 'day' (pos 3) not found");
         }
-
-        
-
         //TODO
         //if datetime.MINYEAR <= year <= datetime.MAXYEAR
+    }
+
+    public org.python.types.Str __str__() {
+        long yearLong = ((org.python.types.Int)this.year).value;
+        String year = Long.toString(yearLong);
+        while (year.length() < 4) {
+            year = "0" + year;
+        }
+        long month = ((org.python.types.Int)this.month).value;
+        long day = ((org.python.types.Int)this.day).value;
+        String returnStr = year + "-" + month + "-" + day + " 00:00:00";
+        return new org.python.types.Str(returnStr);
     }
 
     @org.python.Method(
