@@ -1,6 +1,7 @@
 package org.python.stdlib.datetime;
 
 import java.time.LocalTime;
+import java.util.Collections;
 
 import org.python.Object;
 
@@ -183,7 +184,20 @@ public class Date extends org.python.types.Object {
         __doc__ = "Stringifies the object to be printed out"
     )
     public org.python.types.Str __repr__(){
-        return new org.python.types.Str(this.year + "-" + this.month + "-" + this.day);
+        
+        String year = this.year + "";
+        while (year.length() < 4)
+            year = "0" + year;
+
+        String month = this.month + "";
+        while (month.length() < 2)
+            month = "0" + month;
+
+        String day = this.day + "";
+        while (day.length() < 2)
+            day = "0" + day;
+
+        return new org.python.types.Str(year + "-" + month + "-" + day);
     }
 
     @org.python.Method(
@@ -222,31 +236,56 @@ public class Date extends org.python.types.Object {
         __doc__ = "DOES nothing right now; will return datetime.date.min == datetime.date(1, 1, 1)"
     )
     public org.python.Object min()  {
-        //int i=1;
-        //org.python.Object a  = (org.python.Object) i;
-        //org.python.Object c =  new Date(a,a,a);
-        this.day=org.python.types.NoneType.NONE; //.put(1); //
-        this.month= org.python.types.NoneType.NONE;
-        this.year= org.python.types.NoneType.NONE;
-        return this;
+
+        org.python.types.Int day= org.python.types.Int.getInt(1);
+        org.python.types.Int month= org.python.types.Int.getInt(1);
+        org.python.types.Int year= org.python.types.Int.getInt(1);
+
+        org.python.Object[] args = {year, month, day};
+        return new Date(args, Collections.emptyMap());
+
     }
+
+    @org.python.Method(
+        __doc__ = "DOES nothing right now; will return datetime.date.max == datetime.date(9999, 12, 31)"
+    )
+    public org.python.Object max()  {
+        
+        org.python.types.Int day= org.python.types.Int.getInt(31);
+        org.python.types.Int month= org.python.types.Int.getInt(12);
+        org.python.types.Int year= org.python.types.Int.getInt(9999);
+
+        org.python.Object[] args = {year, month, day};
+        return new Date(args, Collections.emptyMap());
+
+    }
+
+    @org.python.Method(
+        __doc__ = "DOES NOT WORK The smallest possible differens between non-equal date objects, will return datetime.date.resolution == datetime.timedelta(days=1)"
+    )
+    public org.python.Object resolution()  {
+        //NEEDS TIMEDELTA!!
+        org.python.types.Int day= org.python.types.Int.getInt(31);
+        org.python.types.Int month= org.python.types.Int.getInt(12);
+        org.python.types.Int year= org.python.types.Int.getInt(9999);
+
+        org.python.Object[] args = {year, month, day};
+        return new Date(args, Collections.emptyMap());
+
+    }
+
     @org.python.Method(
         __doc__ = "Implementation of dates class function today()" + 
                   "which returns todays date on the form yyyy-mm-dd"
     )
     public static org.python.Object today(){
         java.time.LocalDateTime today = java.time.LocalDateTime.now();
-        String y  = "" + today.getYear();
-        String m = "" + today.getMonthValue();
-        String d   = "" + today.getDayOfMonth();
-        
-        if(m.length() == 1){
-            m = "0"+ m;  
-        }
-        if(d.length() == 1){
-            d = "0"+ d;
-        }
-        return new org.python.types.Str(y + "-" + m + "-" + d);
+        int y  = today.getYear();
+        int m = today.getMonthValue();
+        int d   =  today.getDayOfMonth();
+
+        org.python.Object[] args = {org.python.types.Int.getInt(y), org.python.types.Int.getInt(m), org.python.types.Int.getInt(d)};
+        return new Date(args, Collections.emptyMap());
     }
     @org.python.Method(
         __doc__ = "Implementation of date´s instance function ctime() "
