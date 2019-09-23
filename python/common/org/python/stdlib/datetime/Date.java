@@ -5,10 +5,16 @@ import java.util.Collections;
 
 import org.python.Object;
 
+
+
+
 public class Date extends org.python.types.Object {
     //private org.python.Object year;
     //private org.python.Object month;
     //private org.python.Object day;
+
+    //private final int MIN_YEAR = 1;
+
 
     @org.python.Attribute
     public org.python.Object year= __year__();
@@ -19,6 +25,7 @@ public class Date extends org.python.types.Object {
     @org.python.Attribute
     public org.python.Object day= __day__(); //= org.python.types.Int.getInt(-999999999);
 
+
     @org.python.Attribute
     public static final org.python.Object min = __min__();
 
@@ -28,12 +35,14 @@ public class Date extends org.python.types.Object {
     @org.python.Attribute
     public static org.python.Object resolution = __resolution__();
 
+
     @org.python.Method(
         __doc__ = ""
     )
     public Date(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs)  { //gets kwargs to get by keyword yr,month
 
         super();
+
 
         if (args.length + kwargs.size() > 3 ) {
             int val = args.length + kwargs.size();
@@ -53,9 +62,6 @@ public class Date extends org.python.types.Object {
                 this.year=args[0];
             }
 
-            //System.out.println("==========");
-            //System.out.println("year = "+ this.year);
-            //System.out.println("==========");
 
             if (kwargs.get("month") != null){
                 this.month=kwargs.get("month");
@@ -110,58 +116,56 @@ public class Date extends org.python.types.Object {
         }
 
         if (args.length + kwargs.size() == 2 ) {
-            //System.out.println("hii");
+
             if (args.length ==2)
             {
                 this.year=args[0];
                 this.month=args[1];
             }
-            //System.out.println("----");
-            //System.out.println("month = "+ this.month);
-            //System.out.println("yr = "+ this.year);
-            //System.out.println("----");
-
 
             if (kwargs.get("year") != null){
                 this.year=kwargs.get("year");
             } else if (args.length>0){
                 this.year=args[0];
             }
-            //System.out.println("yr = "+ this.year);
+
 
             if (kwargs.get("month") != null){
                 this.month=kwargs.get("month");
             }
-            //System.out.println("month = "+ this.month);
             if (kwargs.get("day") != null){
                 this.day=kwargs.get("day") ;
             }
 
-            //System.out.println("day = "+ this.day);
+
+            String yr= this.year+"";
+            String mth= this.month+"";
+            String d= this.day+"";
 
 
-
-            if (! (this.year instanceof org.python.types.Int) && this.year !=null ){
+            if ( !yr.equals("null") && !(this.year instanceof org.python.types.Int)  ){
                 throw new org.python.exceptions.TypeError("integer argument expected, got "+ this.year.typeName());
             }
-
             if (kwargs.get("year")!=null && args.length>0){
                 throw new org.python.exceptions.SyntaxError("positional argument follows keyword argument");
             }
 
-            if (! (this.month instanceof org.python.types.Int) && this.month !=null ){
+            if (! (this.month instanceof org.python.types.Int) && !mth.equals("null") ){
                 throw new org.python.exceptions.TypeError("integer argument expected, got "+ this.month.typeName());
             }
 
-            if (kwargs.get("year")!=null && kwargs.get("day")!=null){
+            if (yr.equals("null")){//(kwargs.get("year")!=null && kwargs.get("day")!=null){
+
+                throw new org.python.exceptions.TypeError("function missing required argument 'year' (pos 1)");
+            }
+
+            if (mth.equals("null")){//(kwargs.get("year")!=null && kwargs.get("day")!=null){
+
                 throw new org.python.exceptions.TypeError("function missing required argument 'month' (pos 2)");
             }
-            if (kwargs.get("year")!=null && kwargs.get("month")!=null){
+            if (d.equals("null")){//(kwargs.get("year")!=null && kwargs.get("month")!=null){
                 throw new org.python.exceptions.TypeError("function missing required argument 'day' (pos 3)");
             }
-
-
-
         }
 
         if (args.length + kwargs.size() == 1 ) {
@@ -181,21 +185,20 @@ public class Date extends org.python.types.Object {
                 this.day=kwargs.get("day") ;
             }
 
-            if (!(this.year instanceof org.python.types.Int) && this.year !=null){
+            String yr= this.year+"";
+            String mth= this.month+"";
+            String d= this.day+"";
+
+            if (!(this.year instanceof org.python.types.Int) && !yr.equals("null")){
                 throw new org.python.exceptions.TypeError("integer argument expected, got "+ this.year.typeName());
 
             }
-            if (this.year!=null){
+            if (!yr.equals("null")){
                 throw new org.python.exceptions.TypeError("function missing required argument 'month' (pos 2)");
-
             }
-            if (this.month!=null || this.day!=null){
+            if (!mth.equals("null") ||!d.equals("null")){
                 throw new org.python.exceptions.TypeError("function missing required argument 'year' (pos 1)");
             }
-
-            //throw new org.python.exceptions.TypeError("function missing required argument 'day' (pos 3)");
-            //System.out.println("0=" +args[0]);
-            //System.out.println("  1= "+args[1]);
 
         }
 
@@ -253,28 +256,48 @@ public class Date extends org.python.types.Object {
     }
 
 
-    @org.python.Method(
-        __doc__ = "DOES nothing right now; will return datetime.date.min == datetime.date(1, 1, 1)"
-    )
-    private static org.python.Object __min__()  {
 
+
+    //@org.python.Method(
+    //    __doc__ = "DOES nothing right now; will return datetime.date.min == datetime.date(1, 1, 1)"
+    //)
+    //public org.python.Object __min__()  {
+
+
+        //org.python.types.Int day= org.python.types.Int.getInt(1);
+        //org.python.types.Int month= org.python.types.Int.getInt(1);
+        //org.python.types.Int year= org.python.types.Int.getInt(1);
+
+        //org.python.Object[] args = {year, month, day};
+        //this.year = org.python.types.Int.getInt(1);
+        //this.month = org.python.types.Int.getInt(1);
+        //this.day = org.python.types.Int.getInt(1);
+        //return this;
+        //return new Date(args, Collections.emptyMap());
+
+   // }
+
+    @org.python.Method(
+        __doc__ = "Returns datetime.date.max == datetime.date(9999, 12, 31)"
+    )
+    private static org.python.Object __max__() {
+
+            org.python.types.Int day = org.python.types.Int.getInt(31);
+            org.python.types.Int month = org.python.types.Int.getInt(12);
+            org.python.types.Int year = org.python.types.Int.getInt(9999);
+
+            org.python.Object[] args = {year, month, day};
+            return new Date(args, Collections.emptyMap());
+        }
+
+        @org.python.Method(
+            __doc__ = "Returns datetime.date.min == datetime.date(1,1,1)"
+        )
+
+        private static  org.python.Object __min__()  {
         org.python.types.Int day= org.python.types.Int.getInt(1);
         org.python.types.Int month= org.python.types.Int.getInt(1);
         org.python.types.Int year= org.python.types.Int.getInt(1);
-
-        org.python.Object[] args = {year, month, day};
-        return new Date(args, Collections.emptyMap());
-
-    }
-
-    @org.python.Method(
-        __doc__ = "DOES nothing right now; will return datetime.date.max == datetime.date(9999, 12, 31)"
-    )
-    private static org.python.Object __max__()  {
-        
-        org.python.types.Int day= org.python.types.Int.getInt(31);
-        org.python.types.Int month= org.python.types.Int.getInt(12);
-        org.python.types.Int year= org.python.types.Int.getInt(9999);
 
         org.python.Object[] args = {year, month, day};
         return new Date(args, Collections.emptyMap());
