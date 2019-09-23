@@ -45,6 +45,18 @@ class DateTimeTests(TranspileTestCase):
     #         print(datetime.today())
     #     """)
     
+    def test_date(self):
+        self.assertCodeExecution("""
+            from datetime import datetime
+            print(datetime(1993, 5, 17).date())
+            print(datetime(13, 2, 20).date())
+            print(datetime(1700, 6, 3).date())
+            print(datetime(400, 1, 28).date())
+            print(datetime(2007, 3, 17).date())
+            print(datetime(1843, 12, 1).date())
+            print(datetime(4000, 11, 10).date())
+        """)
+
     # TODO: fix exceptions
     # def test_creation_invalid(self):
     #     self.assertCodeExecution("""

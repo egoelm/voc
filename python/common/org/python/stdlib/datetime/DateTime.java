@@ -111,6 +111,16 @@ public class DateTime extends org.python.types.Object {
         return new org.python.types.Str(returnStr);
     }
 
+    @org.python.Method(
+        __doc__ = ""
+    )
+    public org.python.Object date() {
+        org.python.Object[] args = {org.python.types.Int.getInt(this.timeUnits[YEAR_INDEX]),
+                                    org.python.types.Int.getInt(this.timeUnits[MONTH_INDEX]),
+                                    org.python.types.Int.getInt(this.timeUnits[DAY_INDEX])};
+        return new Date(args, Collections.emptyMap());
+    }
+
     // Return the current local datetime, with tzinfo None.
     //This is equivalent to datetime.fromtimestamp(time.time()). See also now(), fromtimestamp().
     @org.python.Method(
