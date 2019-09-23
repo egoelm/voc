@@ -189,6 +189,23 @@ public class TimeDelta extends org.python.types.Object {
         return new org.python.types.Str(returnStr);
         }
 
+    @org.python.Method(
+        __doc__ = "",
+        args = {"other"}
+        )
+        public org.python.Object __add__(org.python.Object other) {
+            long thisDays = ((org.python.types.Int)this.days).value;
+            System.out.println(thisDays);
+            TimeDelta other_ = (org.python.stdlib.datetime.TimeDelta)other;
+            long otherDays = ((org.python.types.Int)other_.days).value;
+            System.out.println(otherDays);
+            long sum = thisDays + otherDays;
+            String returnStr = ("" + sum);
+            System.out.println(returnStr);
+            return new org.python.types.Str(returnStr);
+        }
+
+   
     public org.python.types.Str __str__() {
         long dayslong = ((org.python.types.Int)this.days).value;
         String days = Long.toString(dayslong);
