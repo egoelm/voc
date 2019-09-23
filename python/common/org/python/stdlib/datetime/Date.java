@@ -6,12 +6,29 @@ import java.util.Collections;
 import org.python.Object;
 
 public class Date extends org.python.types.Object {
-    private org.python.Object year;
-    private org.python.Object month;
-    private org.python.Object day;
+    //private org.python.Object year;
+    //private org.python.Object month;
+    //private org.python.Object day;
 
-    private final int MIN_YEAR = 1;
+    @org.python.Attribute
+    public org.python.Object year= __year__();
 
+    @org.python.Attribute
+    public org.python.Object month= __month__();
+
+    @org.python.Attribute
+    public org.python.Object day= __day__(); //= org.python.types.Int.getInt(-999999999);
+
+    @org.python.Attribute
+    public static final org.python.Object min;
+
+    @org.python.Attribute
+    public static final org.python.Object max;
+
+    static {
+       min = __min__();
+       max = __max__();
+    }
     @org.python.Method(
         __doc__ = ""
     )
@@ -36,8 +53,10 @@ public class Date extends org.python.types.Object {
             } else{
                 this.year=args[0];
             }
-            //System.out.println("year = "+ this.year);
 
+            //System.out.println("==========");
+            //System.out.println("year = "+ this.year);
+            //System.out.println("==========");
 
             if (kwargs.get("month") != null){
                 this.month=kwargs.get("month");
@@ -58,7 +77,9 @@ public class Date extends org.python.types.Object {
                 (this.month instanceof org.python.types.Int) && //||this.month instanceof org.python.types.Bool
                 (this.day instanceof org.python.types.Int )){ //||this.day instanceof org.python.types.Bool
                 //if (this.year instanceof org.python.types.Bool){this.year=(Integer)1;}
-                if (1d<=((org.python.types.Int)  this.year).value && ((org.python.types.Int)  this.year).value<=9999d ) {
+                //System.out.println("=====here=====");
+                if (1<=((org.python.types.Int)  this.year).value && ((org.python.types.Int)  this.year).value<=9999 ) {
+
                     if (1d <= ((org.python.types.Int) this.month).value && ((org.python.types.Int) this.month).value <= 12d) {
                         if (1d <= ((org.python.types.Int) this.day).value && ((org.python.types.Int) this.day).value <= 31d) {
                             //TODO check leap year (so max day=29 for month=2),
@@ -71,7 +92,8 @@ public class Date extends org.python.types.Object {
                         throw new org.python.exceptions.ValueError("month must be in 1..12");
                     }
                 }else{
-                    throw new org.python.exceptions.ValueError("year "+ args[0]+ " is out of range");
+                    //System.out.println("=====h YEA__R ere=====");
+                    throw new org.python.exceptions.ValueError("year "+ this.year+ " is out of range");
                 }
             }else{
                 if (!(this.year instanceof org.python.types.Int )){
@@ -89,16 +111,16 @@ public class Date extends org.python.types.Object {
         }
 
         if (args.length + kwargs.size() == 2 ) {
-            System.out.println("hii");
+            //System.out.println("hii");
             if (args.length ==2)
             {
                 this.year=args[0];
                 this.month=args[1];
             }
-            System.out.println("----");
-            System.out.println("month = "+ this.month);
-            System.out.println("yr = "+ this.year);
-            System.out.println("----");
+            //System.out.println("----");
+            //System.out.println("month = "+ this.month);
+            //System.out.println("yr = "+ this.year);
+            //System.out.println("----");
 
 
             if (kwargs.get("year") != null){
@@ -106,17 +128,17 @@ public class Date extends org.python.types.Object {
             } else if (args.length>0){
                 this.year=args[0];
             }
-            System.out.println("yr = "+ this.year);
+            //System.out.println("yr = "+ this.year);
 
             if (kwargs.get("month") != null){
                 this.month=kwargs.get("month");
             }
-            System.out.println("month = "+ this.month);
+            //System.out.println("month = "+ this.month);
             if (kwargs.get("day") != null){
                 this.day=kwargs.get("day") ;
             }
 
-            System.out.println("day = "+ this.day);
+            //System.out.println("day = "+ this.day);
 
 
 
@@ -213,21 +235,21 @@ public class Date extends org.python.types.Object {
     @org.python.Method(
         __doc__ = "returns year"
     )
-    public org.python.types.Str year() {
+    public org.python.types.Str __year__() {
         return new org.python.types.Str(this.year +"");
     }
 
     @org.python.Method(
         __doc__ = "returns month"
     )
-    public org.python.types.Str month() {
+    public org.python.types.Str __month__() {
         return new org.python.types.Str(this.month +"");
     }
 
     @org.python.Method(
         __doc__ = "returns day"
     )
-    public org.python.types.Str day() {
+    public org.python.types.Str __day__() {
         return new org.python.types.Str(this.day +"");
     }
 
@@ -235,7 +257,7 @@ public class Date extends org.python.types.Object {
     @org.python.Method(
         __doc__ = "DOES nothing right now; will return datetime.date.min == datetime.date(1, 1, 1)"
     )
-    public org.python.Object min()  {
+    private static org.python.Object __min__()  {
 
         org.python.types.Int day= org.python.types.Int.getInt(1);
         org.python.types.Int month= org.python.types.Int.getInt(1);
@@ -249,7 +271,7 @@ public class Date extends org.python.types.Object {
     @org.python.Method(
         __doc__ = "DOES nothing right now; will return datetime.date.max == datetime.date(9999, 12, 31)"
     )
-    public org.python.Object max()  {
+    private static org.python.Object __max__()  {
         
         org.python.types.Int day= org.python.types.Int.getInt(31);
         org.python.types.Int month= org.python.types.Int.getInt(12);
@@ -300,18 +322,10 @@ public class Date extends org.python.types.Object {
         double weekdayNum = ((org.python.types.Int)weekday()).value;
         String weekdayStr = weekdayList[(int)weekdayNum];
 
-        return new org.python.types.Str(weekdayStr + " " + monthStr + " " + this.day + " 00:00:00 " + this.year);
+        return new org.python.types.Str(weekdayStr + " " + monthStr + "  " + this.day + " 00:00:00 " + this.year);
     }
-    /*@org.python.Method(
-        __doc__ = "Implementation of dates class function replace()" + 
-                  "which returns the date object which is changed depending on arguments"
-        //args = {"args", "kwargs"}          
-    )
-    public static org.python.Object replace(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs){
-        java.text.SimpleDateFormat s = new java.text.SimpleDateFormat("EEEE");
-        java.util.Date d = new java.util.Date();
-        return new org.python.types.Str(""+s.format(d));
-    }*/
+
+
     @org.python.Method(
         __doc__ = "Implementation of date´s instance function weekday()" + 
                   "which returns an int representing the weekday of a " + 

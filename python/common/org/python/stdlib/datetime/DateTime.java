@@ -14,6 +14,23 @@ public class DateTime extends org.python.types.Object {
     private final int MAX_YEAR = 9999;
 
     private Long[] timeUnits = { 0l, 0l, 0l, 0l, 0l, 0l, 0l };
+    
+    @org.python.Attribute
+    public final org.python.Object year; 
+
+    @org.python.Attribute
+    public final org.python.Object month;
+
+    @org.python.Attribute
+    public final org.python.Object day;
+
+    @org.python.Attribute
+    public static final org.python.Object min = __min__();
+
+    @org.python.Attribute
+    public static final org.python.Object max = __max__();
+
+
 
     // @org.python.Method(
     // __doc__ = "",
@@ -73,6 +90,12 @@ public class DateTime extends org.python.types.Object {
             throw new org.python.exceptions.ValueError(
                     "microsecond " + this.timeUnits[MICROSECOND_INDEX] + "is out of range");
         }
+
+
+
+        this.year = __year__();
+        this.month = __month__();
+        this.day = __day__();
     }
 
     public org.python.types.Str __str__() {
@@ -135,6 +158,55 @@ public class DateTime extends org.python.types.Object {
                                     org.python.types.Int.getInt(today.getMinute()),
                                     org.python.types.Int.getInt(today.getSecond()), 
                                     org.python.types.Int.getInt(today.getNano()/1000)};
+        return new DateTime(args, Collections.emptyMap());
+    }
+
+    @org.python.Method(
+        __doc__ = "returns year"
+    )
+    public org.python.types.Str __year__() {
+        return new org.python.types.Str(this.timeUnits[YEAR_INDEX] + "");
+    }
+
+    @org.python.Method(
+        __doc__ = "returns month"
+    )
+    public org.python.types.Str __month__() {
+        return new org.python.types.Str(this.timeUnits[MONTH_INDEX] + "");
+    }
+
+    @org.python.Method(
+        __doc__ = "returns day"
+    )
+    public org.python.types.Str __day__() {
+        return new org.python.types.Str(this.timeUnits[DAY_INDEX] + "");
+    }
+
+    @org.python.Method(
+        __doc__ = ""
+    )
+    private static org.python.Object __min__()  {
+        org.python.types.Int year = org.python.types.Int.getInt(1);
+        org.python.types.Int month = org.python.types.Int.getInt(1);
+        org.python.types.Int day = org.python.types.Int.getInt(1);
+
+        org.python.Object[] args = {year, month, day};
+        return new DateTime(args, Collections.emptyMap());
+    }
+
+    @org.python.Method(
+        __doc__ = ""
+    )
+    private static org.python.Object __max__()  {
+        org.python.types.Int year = org.python.types.Int.getInt(9999);
+        org.python.types.Int month = org.python.types.Int.getInt(12);
+        org.python.types.Int day = org.python.types.Int.getInt(31);
+        org.python.types.Int hour = org.python.types.Int.getInt(23);
+        org.python.types.Int minute = org.python.types.Int.getInt(59);
+        org.python.types.Int second = org.python.types.Int.getInt(59);
+        org.python.types.Int microsecond = org.python.types.Int.getInt(999999);
+
+        org.python.Object[] args = {year, month, day, hour, minute, second, microsecond};
         return new DateTime(args, Collections.emptyMap());
     }
 }
