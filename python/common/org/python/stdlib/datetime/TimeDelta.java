@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Collections;
 
+
 public class TimeDelta extends org.python.types.Object {
    /* private org.python.Object days;
     private org.python.Object seconds;
@@ -177,6 +178,17 @@ public class TimeDelta extends org.python.types.Object {
         return new org.python.types.Str("datetime.timedelta(" + org.python.types.Int.getInt(0) +"," + org.python.types.Int.getInt(0) + "," + org.python.types.Int.getInt(1) +")");
 
     }
+
+    //TODO get rid of roundup and have float
+    @org.python.Method()
+    public org.python.types.Str total_seconds(){
+        long days = (((org.python.types.Int)this.days).value)*24*3600;
+       // long microseconds = (((org.python.types.Int)this.microseconds).value)*(Math.pow(10, (-6)));
+        long sum_seconds = days + (((org.python.types.Int)this.seconds).value); //+ microseconds;
+        String returnStr = ("" + sum_seconds);
+        return new org.python.types.Str(returnStr);
+        }
+
     public org.python.types.Str __str__() {
         long dayslong = ((org.python.types.Int)this.days).value;
         String days = Long.toString(dayslong);
