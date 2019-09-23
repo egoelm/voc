@@ -716,7 +716,7 @@ public class Float extends org.python.types.Object {
         }
         return new org.python.types.Str(result);
     }
-
+ 
     @org.python.Method(
             __doc__ = "",
             args = {"other", "value"}
