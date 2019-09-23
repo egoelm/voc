@@ -204,6 +204,10 @@ public class TimeDelta extends org.python.types.Object {
             System.out.println(returnStr);
             return new org.python.types.Str(returnStr);
         }
+    public org.python.Object __pos__() {
+      return this;
+        //throw new org.python.exceptions.TypeError("bad operand type for unary +: '" + this.typeName() + "'");
+    }
 
    
     public org.python.types.Str __str__() {
