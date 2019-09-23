@@ -14,7 +14,7 @@ public class List extends org.python.types.Object {
 
     public int hashCode() {
         return this.value.hashCode();
-    }
+    } 
 
     @Override
     public org.python.Object __hash__() {

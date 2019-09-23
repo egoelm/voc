@@ -64,7 +64,7 @@ class DateTests(TranspileTestCase):
     #######################################################
     #######################################################
     # __file__
-    #@expectedFailure
+    @expectedFailure
     def test___repr__(self):
         self.assertCodeExecution("""
             from datetime import date
@@ -83,3 +83,41 @@ class DateTests(TranspileTestCase):
             print(date(14, 10, 11))
             print(date(14, month=10, day=11))
             print(date(year=14, month=10, day=11))""")
+
+    def test_class_methods(self):
+        #Test function today()
+        self.assertCodeExecution("""
+            from datetime import date
+            print(date.today())
+            """)
+
+    def test_instance_methods(self):
+        #Test function weekday()
+        self.assertCodeExecution("""
+            from datetime import date
+            for d in range(1,13):
+                x = date(2019,d,d)
+                print(x.weekday())
+            """)
+
+        #Test function ctime()    
+        self.assertCodeExecution("""
+            from datetime import date
+            for d in range(1,13):
+                x = date(1993,12,1)
+                print(x.ctime())
+            """)
+
+    def test_class_attributes(self):
+        #Min function
+        self.assertCodeExecution("""
+            from datetime import date
+            x = date(2019,9,22)
+            print(x.min)
+            """)
+        #Max function
+        self.assertCodeExecution("""
+            from datetime import date
+            x = date(2019,9,22)
+            print(x.max)
+            """)
