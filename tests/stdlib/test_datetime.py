@@ -37,6 +37,13 @@ class DateTimeTests(TranspileTestCase):
             print(datetime(142, 12, day=12, second=4))
             print(datetime(142, 12, day=12, second=4, minute=2))
             """)
+
+    # The following test will not succeed because the microseconds will differ.
+    # def test_today(self):
+    #     self.assertCodeExecution("""
+    #         from datetime import datetime
+    #         print(datetime.today())
+    #     """)
     
     # TODO: fix exceptions
     # def test_creation_invalid(self):

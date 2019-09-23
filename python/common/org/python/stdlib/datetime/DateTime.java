@@ -1,4 +1,5 @@
 package org.python.stdlib.datetime;
+import java.util.Collections;
 
 public class DateTime extends org.python.types.Object {
     private final int YEAR_INDEX = 0;
@@ -34,7 +35,7 @@ public class DateTime extends org.python.types.Object {
             } else if (args.length > argIndex) {
                 if (kwargsIsUsed)
                     throw new org.python.exceptions.SyntaxError(
-                            "positional argument follows keyword argument, hellloooooo");
+                            "positional argument follows keyword argument");
                 this.timeUnits[keyIndex] = ((org.python.types.Int) args[argIndex]).value;
                 argIndex++;
             } else if (keyIndex < 3) {
@@ -108,5 +109,22 @@ public class DateTime extends org.python.types.Object {
 
         returnStr += microsecond.length() > 0 ? "." + microsecond : "";
         return new org.python.types.Str(returnStr);
+    }
+
+    // Return the current local datetime, with tzinfo None.
+    //This is equivalent to datetime.fromtimestamp(time.time()). See also now(), fromtimestamp().
+    @org.python.Method(
+        __doc__ = ""
+    )
+    public static org.python.Object today() {
+        java.time.LocalDateTime today = java.time.LocalDateTime.now();
+        org.python.Object[] args = {org.python.types.Int.getInt(today.getYear()),
+                                    org.python.types.Int.getInt(today.getMonth().getValue()),
+                                    org.python.types.Int.getInt(today.getDayOfMonth()),
+                                    org.python.types.Int.getInt(today.getHour()),
+                                    org.python.types.Int.getInt(today.getMinute()),
+                                    org.python.types.Int.getInt(today.getSecond()), 
+                                    org.python.types.Int.getInt(today.getNano()/1000)};
+        return new DateTime(args, Collections.emptyMap());
     }
 }
