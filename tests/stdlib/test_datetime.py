@@ -75,7 +75,6 @@ class DateTests(TranspileTestCase):
             date(14, 12, 111)
         except ValueError as err:
             print(err)
-        
         """)
 
     def test_year_wrong_type(self):
