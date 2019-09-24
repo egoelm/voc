@@ -71,9 +71,9 @@ class DateTests(TranspileTestCase):
     #@expectedFailure
     #def test___repr__(self):
     #    self.assertCodeExecution("""
-     #       from datetime import date
-      #      print(date.__repr__)
-       #     """)
+    #        from datetime import date
+    #        print(date.__repr__)
+     #       """)
 
     #######################################################
 
@@ -209,10 +209,20 @@ class DateTests(TranspileTestCase):
     def test_one_arg_w_month(self):
         self.assertCodeExecution("""
             from datetime import date
-            print(date(14, 10, day=11))
-            print(date(14, 10, 11))
-            print(date(14, month=10, day=11))
-            print(date(year=14, month=10, day=11))""")
+            try:
+                date(month=14.0)
+            except TypeError as err:
+                print(err)
+            """)
+
+    def test_no_arg(self):
+        self.assertCodeExecution("""
+            from datetime import date
+            try:
+                date()
+            except TypeError as err:
+                print(err)
+            """)
 
     def test_class_methods(self):
         #Test function today()

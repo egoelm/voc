@@ -201,6 +201,9 @@ public class Date extends org.python.types.Object {
             }
 
         }
+        if (args.length + kwargs.size() == 0 ) {
+            throw new org.python.exceptions.TypeError("function missing required argument 'year' (pos 1)");
+        }
 
     }
 
