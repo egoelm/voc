@@ -10,8 +10,6 @@ public class Date extends org.python.types.Object {
     //private org.python.Object month;
     //private org.python.Object day;
 
-    private final int MIN_YEAR = 1;
-
     @org.python.Attribute
     public org.python.Object year= __year__();
 
@@ -21,7 +19,16 @@ public class Date extends org.python.types.Object {
     @org.python.Attribute
     public org.python.Object day= __day__(); //= org.python.types.Int.getInt(-999999999);
 
+    @org.python.Attribute
+    public static final org.python.Object min;
 
+    @org.python.Attribute
+    public static final org.python.Object max;
+
+    static {
+       min = __min__();
+       max = __max__();
+    }
     @org.python.Method(
         __doc__ = ""
     )
@@ -250,7 +257,7 @@ public class Date extends org.python.types.Object {
     @org.python.Method(
         __doc__ = "DOES nothing right now; will return datetime.date.min == datetime.date(1, 1, 1)"
     )
-    public org.python.Object min()  {
+    private static org.python.Object __min__()  {
 
         org.python.types.Int day= org.python.types.Int.getInt(1);
         org.python.types.Int month= org.python.types.Int.getInt(1);
@@ -264,7 +271,7 @@ public class Date extends org.python.types.Object {
     @org.python.Method(
         __doc__ = "DOES nothing right now; will return datetime.date.max == datetime.date(9999, 12, 31)"
     )
-    public org.python.Object max()  {
+    private static org.python.Object __max__()  {
         
         org.python.types.Int day= org.python.types.Int.getInt(31);
         org.python.types.Int month= org.python.types.Int.getInt(12);
@@ -315,7 +322,7 @@ public class Date extends org.python.types.Object {
         double weekdayNum = ((org.python.types.Int)weekday()).value;
         String weekdayStr = weekdayList[(int)weekdayNum];
 
-        return new org.python.types.Str(weekdayStr + " " + monthStr + " " + this.day + " 00:00:00 " + this.year);
+        return new org.python.types.Str(weekdayStr + " " + monthStr + "  " + this.day + " 00:00:00 " + this.year);
     }
 
 
