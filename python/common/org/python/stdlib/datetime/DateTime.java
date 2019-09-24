@@ -42,12 +42,6 @@ public class DateTime extends org.python.types.Object {
     @org.python.Attribute
     public static final org.python.Object max = __max__();
 
-    // @org.python.Method(
-    // __doc__ = "",
-    // default_args = {"year", "month", "day"}
-    // )
-    // TODO: add the opptional parametars
-
     public DateTime(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs) {
         super();
         String[] keys = { "year", "month", "day", "hour", "minute", "second", "microsecond" };
