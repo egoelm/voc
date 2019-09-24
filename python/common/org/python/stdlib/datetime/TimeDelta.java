@@ -215,9 +215,9 @@ public class TimeDelta extends org.python.types.Object {
             TimeDelta TD = new TimeDelta(args, Collections.EMPTY_MAP);
             return TD;
         }
+
+
     public org.python.Object __pos__() {
-
-
       //long thisSeconds = ((org.python.types.Int)this.seconds).value;
       long otherSeconds = ((org.python.types.Int)this.seconds).value;
 
@@ -240,15 +240,31 @@ public class TimeDelta extends org.python.types.Object {
     public org.python.types.Str __str__() {
         long dayslong = ((org.python.types.Int)this.days).value;
         String days = Long.toString(dayslong);
-        /*while (year.length() < 4) {
-            year = "0" + year;
-        }*/
-        //long hours = ((org.python.types.Int)this.hours).value;
+
         long seconds = ((org.python.types.Int)this.seconds).value;
         long microseconds = ((org.python.types.Int)this.microseconds).value;
-        //long printSeconds = seconds % 3600;quit()
-        //long hours = (seconds  - printSeconds)/3600;
-        String returnStr = days +" days, "  + "seconds: " + seconds + ", microseconds: " + microseconds;
+
+    
+        long restminutes = (seconds%3600);
+        long hours = (seconds - (restminutes))/3600;
+     
+        long restseconds = (restminutes%60);
+        long minutes = (restminutes - (restseconds))/60;
+
+        String returnStr = ""; 
+
+        if(minutes < 10 && restseconds < 10){
+            returnStr = days +" days, "  + hours + ":0" + minutes + ":0" + restseconds + "."; 
+        }
+        else if( minutes < 10){
+            returnStr = days +" days, "  + hours + ":0" + minutes + ":" + restseconds + "."; 
+        }
+        else if(restseconds < 10){
+            returnStr = days +" days, "  + hours + ":" + minutes + ":0" + restseconds + "."; 
+        }
+        else{
+            returnStr = days +" days, "  + hours + ":" + minutes + ":" + restseconds + "."; 
+        }
         return new org.python.types.Str(returnStr);
     }
 
