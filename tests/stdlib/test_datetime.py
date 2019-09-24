@@ -61,37 +61,63 @@ class DateTimeTests(TranspileTestCase):
             print (datetime(1993,5,17,20,30,12,34).microsecond)
         """)
 
-
-    # TODO: fix exceptions
-    # def test_creation_invalid(self):
-    #     self.assertCodeExecution("""
-    #         from datetime import datetime
-    #         try:
-    #             datetime(14, month=10, 11)
-    #         except SyntaxError as e:
-    #             print(e)
-    #         """)
-
-class DateTests(TranspileTestCase):
-    #######################################################
-    #######################################################
-    # __file__
-    #@expectedFailure
-    # def test___repr__(self):
-    #     self.assertCodeExecution("""
-    #         from datetime import date
-    #         print(date.__repr__)
-    #         """)
-
-    #######################################################
-
-
-    #######################################################
-
-    def test_creation(self):
+    
+    def test_year_too_large(self):
         self.assertCodeExecution("""
-            from datetime import date
-            print(date(14, 10, day=11))
-            print(date(14, 10, 11))
-            print(date(14, month=10, day=11))
-            print(date(year=14, month=10, day=11))""")
+        from datetime import datetime
+        try:
+            datetime(19999, 10, 11)
+        except ValueError as err:
+            print(err)
+        
+        """)    
+
+    def test_year_too_small(self):
+        self.assertCodeExecution("""
+        from datetime import datetime
+        try:
+            datetime(0, 10, 11)
+        except ValueError as err:
+            print(err)
+        
+        """)  
+
+    def test_month_too_large(self):
+        self.assertCodeExecution("""
+        from datetime import datetime
+        try:
+            datetime(14, 41, 11)
+        except ValueError as err:
+            print(err)
+        
+        """)  
+        
+    def test_month_too_small(self):
+            self.assertCodeExecution("""
+        from datetime import datetime
+        try:
+            datetime(0, 0, 11)
+        except ValueError as err:
+            print(err)
+        
+        """)       
+    
+    # def test_creation_invaild_type_str(self):
+    #         self.assertCodeExecution("""
+    #     from datetime import datetime
+    #     try:
+    #         datetime("ss", 0, 11)
+    #     except ValueError as err:
+    #         print(err)
+
+    #     """) 
+
+    # def test_creation_invaild_type_float(self):
+    #         self.assertCodeExecution("""
+    #     from datetime import datetime
+    #     try:
+    #         datetime(14.0, 0, 11)
+    #     except ValueError as err:
+    #         print(err)
+
+    #     """)
