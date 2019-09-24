@@ -152,12 +152,11 @@ public class TimeDelta extends org.python.types.Object {
     }
 
     @org.python.Method()
-    public org.python.types.Str __min__(){
-        //long days = org.python.types.Int.getInt(-999999999);
-        //org.python.Object[] args = {org.python.types.Int.getInt(-999999999)};
+    public org.python.Object __min__(){
 
-        //TimeDelta minObject = new TimeDelta(args, Collections.emptyMap());
-         return new org.python.types.Str("datetime.timedelta(" + org.python.types.Int.getInt(-999999999) +")");
+
+
+         return new org.python.types.Str("-99999999 days, 0:00:00" );
 
     }
     
@@ -166,7 +165,7 @@ public class TimeDelta extends org.python.types.Object {
         //this.days = this.min;
         //String returnStr = ""+ this.days;
         //return this;
-        return new org.python.types.Str("datetime.timedelta(" + org.python.types.Int.getInt(999999999) +"," + org.python.types.Int.getInt(86399) + "," + org.python.types.Int.getInt(999999) +")");
+        return new org.python.types.Str("99999999 days, 23:59:59.999999" );
 
     }
 
@@ -175,7 +174,7 @@ public class TimeDelta extends org.python.types.Object {
         //this.days = this.min;
         //String returnStr = ""+ this.days;
         //return this;
-        return new org.python.types.Str("datetime.timedelta(" + org.python.types.Int.getInt(0) +"," + org.python.types.Int.getInt(0) + "," + org.python.types.Int.getInt(1) +")");
+        return new org.python.types.Str("0:00:00.000001" );
 
     }
 
@@ -185,7 +184,31 @@ public class TimeDelta extends org.python.types.Object {
         long days = (((org.python.types.Int)this.days).value)*24*3600;
        // long microseconds = (((org.python.types.Int)this.microseconds).value)*(Math.pow(10, (-6)));
         long sum_seconds = days + (((org.python.types.Int)this.seconds).value); //+ microseconds;
-        String returnStr = ("" + sum_seconds);
+        long microseconds = (((org.python.types.Int)this.microseconds).value);
+        String micro = "";
+        if (microseconds ==0){
+            micro = "0";
+        }
+        else if(microseconds <10){
+            micro = "00000" + microseconds;
+        }
+        else if(microseconds <100){
+            micro = "0000" + microseconds;
+        }
+        else if(microseconds <1000){
+            micro = "000" + microseconds;
+        }
+        else if(microseconds <10000){
+            micro = "00" + microseconds;
+        }
+        else if(microseconds <100000){
+            micro = "0" + microseconds;
+        }
+
+        else {
+            micro = "" + microseconds;
+        }
+        String returnStr = ("" + sum_seconds +"."+micro);
         return new org.python.types.Str(returnStr);
         }
 
@@ -251,19 +274,44 @@ public class TimeDelta extends org.python.types.Object {
         long restseconds = (restminutes%60);
         long minutes = (restminutes - (restseconds))/60;
 
+        //long microseconds = (((org.python.types.Int)this.microseconds).value);
+        String micro = "";
+        if (microseconds ==0){
+            micro = "";
+        }
+        else if(microseconds <10){
+            micro = ".00000" + microseconds;
+        }
+        else if(microseconds <100){
+            micro = ".0000" + microseconds;
+        }
+        else if(microseconds <1000){
+            micro = ".000" + microseconds;
+        }
+        else if(microseconds <10000){
+            micro = ".00" + microseconds;
+        }
+        else if(microseconds <100000){
+            micro = ".0" + microseconds;
+        }
+
+        else {
+            micro = "" + microseconds;
+        }
+
         String returnStr = ""; 
 
         if(minutes < 10 && restseconds < 10){
-            returnStr = days +" days, "  + hours + ":0" + minutes + ":0" + restseconds + "."; 
+            returnStr = days +" days, "  + hours + ":0" + minutes + ":0" + restseconds +  micro ; 
         }
         else if( minutes < 10){
-            returnStr = days +" days, "  + hours + ":0" + minutes + ":" + restseconds + "."; 
+            returnStr = days +" days, "  + hours + ":0" + minutes + ":" + restseconds +  micro ; 
         }
         else if(restseconds < 10){
-            returnStr = days +" days, "  + hours + ":" + minutes + ":0" + restseconds + "."; 
+            returnStr = days +" days, "  + hours + ":" + minutes + ":0" + restseconds +  micro ; 
         }
         else{
-            returnStr = days +" days, "  + hours + ":" + minutes + ":" + restseconds + "."; 
+            returnStr = days +" days, "  + hours + ":" + minutes + ":" + restseconds +  micro ; 
         }
         return new org.python.types.Str(returnStr);
     }
