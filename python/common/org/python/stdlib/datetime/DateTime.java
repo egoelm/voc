@@ -25,12 +25,22 @@ public class DateTime extends org.python.types.Object {
     public final org.python.Object day;
 
     @org.python.Attribute
+    public final org.python.Object hour;
+
+    @org.python.Attribute
+    public final org.python.Object minute;
+
+    @org.python.Attribute
+    public final org.python.Object second;
+
+    @org.python.Attribute
+    public final org.python.Object microsecond;
+
+    @org.python.Attribute
     public static final org.python.Object min = __min__();
 
     @org.python.Attribute
     public static final org.python.Object max = __max__();
-
-
 
     // @org.python.Method(
     // __doc__ = "",
@@ -91,11 +101,13 @@ public class DateTime extends org.python.types.Object {
                     "microsecond " + this.timeUnits[MICROSECOND_INDEX] + "is out of range");
         }
 
-
-
         this.year = __year__();
         this.month = __month__();
         this.day = __day__();
+        this.hour = __hour__();
+        this.minute = __minute__();
+        this.second = __second__();
+        this.microsecond = __microsecond__();
     }
 
     public org.python.types.Str __str__() {
@@ -180,6 +192,34 @@ public class DateTime extends org.python.types.Object {
     )
     public org.python.types.Str __day__() {
         return new org.python.types.Str(this.timeUnits[DAY_INDEX] + "");
+    }
+
+    @org.python.Method(
+        __doc__ = "returns hour"
+    )
+    public org.python.types.Str __hour__() {
+        return new org.python.types.Str(this.timeUnits[HOUR_INDEX] + "");
+    }
+
+    @org.python.Method(
+        __doc__ = "returns minute"
+    )
+    public org.python.types.Str __minute__() {
+        return new org.python.types.Str(this.timeUnits[MINUTE_INDEX] + "");
+    }
+
+    @org.python.Method(
+        __doc__ = "returns second"
+    )
+    public org.python.types.Str __second__() {
+        return new org.python.types.Str(this.timeUnits[SECOND_INDEX] + "");
+    }
+
+    @org.python.Method(
+        __doc__ = "returns microsecond"
+    )
+    public org.python.types.Str __microsecond__() {
+        return new org.python.types.Str(this.timeUnits[MICROSECOND_INDEX] + "");
     }
 
     @org.python.Method(
