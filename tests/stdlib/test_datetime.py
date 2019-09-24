@@ -51,6 +51,7 @@ class DateTests(TranspileTestCase):
         """)
     def test_month_too_large(self):
         self.assertCodeExecution("""
+
         from datetime import date
         try:
             date(14, 122, 11)
@@ -65,7 +66,6 @@ class DateTests(TranspileTestCase):
             date(14, 12, 111)
         except ValueError as err:
             print(err)
-        
         """)
 
     def test_year_wrong_type(self):
@@ -126,6 +126,7 @@ class DateTests(TranspileTestCase):
                 print(err)
             
             """)
+
 
     def test_two_few_args3(self):
         self.assertCodeExecution("""
