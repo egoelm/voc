@@ -212,6 +212,8 @@ class DateTests(TranspileTestCase):
             print(x.max)
             """)
 
+
+
     def test_one_arg_w_month(self):
         self.assertCodeExecution("""
             from datetime import date
