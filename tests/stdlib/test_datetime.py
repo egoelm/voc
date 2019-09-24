@@ -6,9 +6,19 @@ from ..utils import TranspileTestCase
 
 # class TimeDeltaTests(TranspileTestCase):
 
-#class DateTimeTests(TranspileTestCase):
-
-
+class DateTimeTests(TranspileTestCase):
+    def test_creation(self):
+        self.assertCodeExecution("""
+            from datetime import datetime
+            print(datetime(1993,5,17).min)
+            print(datetime(1993,5,17).max)
+            print (datetime(1993,5,17).year)
+            print (datetime(1993,5,17).month)
+            print (datetime(1993,5,17,20,30,12,34).hour)
+            print (datetime(1993,5,17,20,30,12,34).minute)
+            print (datetime(1993,5,17,20,30,12,34).second)
+            print (datetime(1993,5,17,20,30,12,34).microsecond)
+        """)
 
 class DateTests(TranspileTestCase):
 
