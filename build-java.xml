@@ -2,17 +2,34 @@
   <description>
     Build Python support libraries for voc
   </description>
+      <property name="test.src.dir" value="junit-tests/" />
+      <property name="test.build.dir" value="${build}/java-test/" />
+
+      <path id="classpath.test">
+        <pathelement location="lib/junit-4.13-beta-3.jar" />
+        <pathelement location="lib/hamcrest-core-1.3.jar" />
+        <pathelement location="${build}/java" />
+      </path>
 
   <target name="compile" description="Compile the Oracle-specific source">
     <mkdir dir="${build}/java"/>
     <javac debug="true"
            debuglevel="lines,vars,source"
            includeantruntime="false"
+           srcdir="${src}"
+           includes="common/**, java/**"
+           excludes="java_tests/**"
            destdir="${build}/java">
-      <src path="${src}/common" />
-      <src path="${src}/java" />
+
     </javac>
   </target>
+
+      <target name="test-compile" depends="compile">
+        <mkdir dir="${test.build.dir}"/>
+        <javac srcdir="${test.src.dir}" destdir="${test.build.dir}" includeantruntime="false">
+          <classpath refid="classpath.test"/>
+        </javac>
+      </target>
 
   <target name="compile_stdlib" description="Compile the standard library">
     <exec executable="python">
@@ -56,6 +73,19 @@
           file="${dist}/Python-${python-version}-Java-testdaemon.b${release}.jar"
           overwrite="true" />
   </target>
+
+      <target name="junit" depends="test-compile">
+        <junit printsummary="yes" haltonfailure="no">
+          <classpath>
+    	  <path refid="classpath.test"/>
+    	  <pathelement location="${test.build.dir}"/>
+          </classpath>
+          <formatter type="brief" usefile="false" />
+          <batchtest>
+    	<fileset dir="${test.src.dir}" includes="java_tests/*Test.java" />
+          </batchtest>
+        </junit>
+</target>
 
   <target name="clean" description="Clean up">
     <delete dir="${build}"/>
