@@ -33,8 +33,10 @@ public class Date extends org.python.types.Object {
     public static final org.python.Object max = __max__();
 
 
+
 //    @org.python.Attribute
 //    public static org.python.Object resolution = __resolution__();
+
 
 
 
@@ -269,6 +271,7 @@ public class Date extends org.python.types.Object {
 
 
 
+
     @org.python.Method(
         __doc__ = "Returns datetime.date.max == datetime.date(9999, 12, 31)"
     )
@@ -287,7 +290,6 @@ public class Date extends org.python.types.Object {
         )
 
         private static  org.python.Object __min__()  {
-
         org.python.types.Int day= org.python.types.Int.getInt(1);
         org.python.types.Int month= org.python.types.Int.getInt(1);
         org.python.types.Int year= org.python.types.Int.getInt(1);
@@ -297,14 +299,7 @@ public class Date extends org.python.types.Object {
 
     }
 
-/*    @org.python.Method(
-        __doc__ = "DOES NOT WORK The smallest possible differens between non-equal date objects, will return datetime.date.resolution == datetime.timedelta(days=1)"
-    )
-    private static org.python.Object __resolution__()  {
-        org.python.Object[] args = {org.python.types.Int.getInt(1)};
-        return new TimeDelta(args, Collections.emptyMap());
 
-    }*/
 
     @org.python.Method(
         __doc__ = "Implementation of dates class function today()" +
