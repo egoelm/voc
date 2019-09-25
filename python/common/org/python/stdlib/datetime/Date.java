@@ -32,8 +32,10 @@ public class Date extends org.python.types.Object {
     @org.python.Attribute
     public static final org.python.Object max = __max__();
 
+
 //    @org.python.Attribute
 //    public static org.python.Object resolution = __resolution__();
+
 
 
     @org.python.Method(
@@ -244,7 +246,7 @@ public class Date extends org.python.types.Object {
         return new org.python.types.Str(this.year +"");
 
     }
-    //this __year__ returned an Int
+    //this version of __year__ returned an Int
     /*public org.python.Object __year__() {
         int yr= 2;
         return  org.python.types.Int.getInt(yr);
@@ -267,44 +269,25 @@ public class Date extends org.python.types.Object {
 
 
 
-
-    //@org.python.Method(
-    //    __doc__ = "DOES nothing right now; will return datetime.date.min == datetime.date(1, 1, 1)"
-    //)
-    //public org.python.Object __min__()  {
-
-
-    //org.python.types.Int day= org.python.types.Int.getInt(1);
-    //org.python.types.Int month= org.python.types.Int.getInt(1);
-    //org.python.types.Int year= org.python.types.Int.getInt(1);
-
-    //org.python.Object[] args = {year, month, day};
-    //this.year = org.python.types.Int.getInt(1);
-    //this.month = org.python.types.Int.getInt(1);
-    //this.day = org.python.types.Int.getInt(1);
-    //return this;
-    //return new Date(args, Collections.emptyMap());
-
-    // }
-
     @org.python.Method(
         __doc__ = "Returns datetime.date.max == datetime.date(9999, 12, 31)"
     )
     private static org.python.Object __max__() {
 
-        org.python.types.Int day = org.python.types.Int.getInt(31);
-        org.python.types.Int month = org.python.types.Int.getInt(12);
-        org.python.types.Int year = org.python.types.Int.getInt(9999);
+            org.python.types.Int day = org.python.types.Int.getInt(31);
+            org.python.types.Int month = org.python.types.Int.getInt(12);
+            org.python.types.Int year = org.python.types.Int.getInt(9999);
 
-        org.python.Object[] args = {year, month, day};
-        return new Date(args, Collections.emptyMap());
-    }
+            org.python.Object[] args = {year, month, day};
+            return new Date(args, Collections.emptyMap());
+        }
 
-    @org.python.Method(
-        __doc__ = "Returns datetime.date.min == datetime.date(1,1,1)"
-    )
+        @org.python.Method(
+            __doc__ = "Returns datetime.date.min == datetime.date(1,1,1)"
+        )
 
-    private static  org.python.Object __min__()  {
+        private static  org.python.Object __min__()  {
+
         org.python.types.Int day= org.python.types.Int.getInt(1);
         org.python.types.Int month= org.python.types.Int.getInt(1);
         org.python.types.Int year= org.python.types.Int.getInt(1);

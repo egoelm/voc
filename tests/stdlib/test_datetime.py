@@ -7,6 +7,20 @@ from ..utils import TranspileTestCase
 # class TimeDeltaTests(TranspileTestCase):
 
 
+# class DateTimeTests(TranspileTestCase):
+#     def test_creation(self):
+#         self.assertCodeExecution("""
+#             from datetime import datetime
+#             print(datetime(1993,5,17).min)
+#             print(datetime(1993,5,17).max)
+#             print (datetime(1993,5,17).year)
+#             print (datetime(1993,5,17).month)
+#             print (datetime(1993,5,17,20,30,12,34).hour)
+#             print (datetime(1993,5,17,20,30,12,34).minute)
+#             print (datetime(1993,5,17,20,30,12,34).second)
+#             print (datetime(1993,5,17,20,30,12,34).microsecond)
+#         """)
+
 class DateTests(TranspileTestCase):
 
     #######################################################
@@ -36,7 +50,6 @@ class DateTests(TranspileTestCase):
         """)
 
 
-
     def test_year_too_large(self):
         self.assertCodeExecution("""
         from datetime import date
@@ -46,6 +59,7 @@ class DateTests(TranspileTestCase):
             print(err)
         
         """)
+
     def test_month_too_large(self):
         self.assertCodeExecution("""
         from datetime import date
@@ -55,6 +69,7 @@ class DateTests(TranspileTestCase):
             print(err)
         
         """)
+
     def test_day_too_large(self):
         self.assertCodeExecution("""
         from datetime import date
@@ -63,6 +78,7 @@ class DateTests(TranspileTestCase):
         except ValueError as err:
             print(err)
         """)
+
 
     def test_year_wrong_type(self):
         self.assertCodeExecution("""
@@ -142,6 +158,57 @@ class DateTests(TranspileTestCase):
             
             """)
 
+
+
+    def test_two_many_args(self):
+        self.assertCodeExecution("""
+        from datetime import date
+        try:
+            date(14, 12, 10, 1)
+        except TypeError as err:
+            print(err)
+        
+        """)
+
+    def test_two_few_args(self):
+        self.assertCodeExecution("""
+            from datetime import date
+            try:
+                date(14, 12)
+            except TypeError as err:
+                print(err)
+            
+            """)
+
+    def test_two_few_args_no_yr(self):
+            self.assertCodeExecution("""
+            from datetime import date
+            try:
+                date(month=14, day=12)
+            except TypeError as err:
+                print(err)
+            
+            """)
+
+    def test_two_few_args_no_month(self):
+        self.assertCodeExecution("""
+            from datetime import date
+            try:
+                date(year=14, day=12)
+            except TypeError as err:
+                print(err)  
+            """)
+
+    def test_one_arg_no_month(self):
+        self.assertCodeExecution("""
+            from datetime import date
+            try:
+                date(year=14)
+            except TypeError as err:
+                print(err)
+            
+            """)
+
     def test_one_arg_year_float(self):
         self.assertCodeExecution("""
             from datetime import date
@@ -149,7 +216,7 @@ class DateTests(TranspileTestCase):
                 date(year=14.0)
             except TypeError as err:
                 print(err)
-            
+         
             """)
 
     def test_one_arg_w_month(self):
@@ -160,6 +227,16 @@ class DateTests(TranspileTestCase):
             except TypeError as err:
                 print(err)
             """)
+
+    def test_one_arg_w_day(self):
+        self.assertCodeExecution("""
+        from datetime import date
+        try:
+            date(day=71)
+        except TypeError as err:
+            print(err)        
+        """)
+
 
     def test_no_arg(self):
         self.assertCodeExecution("""
@@ -186,6 +263,9 @@ class DateTests(TranspileTestCase):
                 print(x.weekday())
             """)
 
+
+
+    def test_ctime(self):
         #Test function ctime()
         self.assertCodeExecution("""
             from datetime import date
@@ -210,21 +290,5 @@ class DateTests(TranspileTestCase):
 
 
 
-    def test_one_arg_w_month(self):
-        self.assertCodeExecution("""
-            from datetime import date
-            try:
-                date(month=2)
-            except TypeError as err:
-                print(err)
-            
-            """)
 
-    def test_one_arg_w_day(self):
-        self.assertCodeExecution("""
-            from datetime import date
-            try:
-                date(day=71)
-            except TypeError as err:
-                print(err)        
-            """)
+
