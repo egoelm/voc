@@ -11,22 +11,23 @@ class DateTimeTests(TranspileTestCase):
     def test_creation(self):
        self.assertCodeExecution("""
            from datetime import datetime
-           print(datetime(4, 10, day=11))
-           print(datetime(4, 10, 11))
-           print(datetime(4, month=10, day=11))
-           print(datetime(year=4, month=10, day=11))
-           print(datetime(14, 10, day=11))
-           print(datetime(14, 10, 11))
-           print(datetime(14, month=10, day=11))
-           print(datetime(year=14, month=10, day=11))
-           print(datetime(141, 10, day=11))
-           print(datetime(141, 10, 11))
-           print(datetime(141, month=10, day=11))
-           print(datetime(year=141, month=10, day=11))
-           print(datetime(1413, 10, day=11))
-           print(datetime(1413, 10, 11))
-           print(datetime(1413, month=10, day=11))
-           print(datetime(year=1413, month=10, day=11))
+           print(datetime(1,2,3))
+           print(datetime(1,2,day=3))
+           print(datetime(1,month=2,day=3))
+           print(datetime(year=1,month=2,day=3))
+
+           print(datetime(11,12,13))
+           print(datetime(111,12,13))
+           print(datetime(1111,12,13))
+           
+           print(datetime(1,1,1,0,0,0))
+           print(datetime(1,1,1,0,0,0,0))
+           print(datetime(9999,12,31,23,59,59))
+           print(datetime(9999,12,31,23,59,59,999999))
+           
+           print(datetime(1,2,3,4,5,6,7))
+           print(datetime(1,2,3,4,5,6,1117))
+           print(datetime(1,2,3,4,5,6,111117))
            """)
 
     # The following test will not succeed because the microseconds will differ.
