@@ -95,3 +95,44 @@ class DateTests(TranspileTestCase):
             print(date(14, 10, 11))
             print(date(14, month=10, day=11))
             print(date(year=14, month=10, day=11))""")
+class TimeDeltaTests(TranspileTestCase):
+    
+
+    def test_creation(self):
+        self.assertCodeExecution("""
+            from datetime import timedelta
+            print(timedelta(14, 10, 1, weeks=11))
+            print(timedelta(91, 10, 1))
+            print(timedelta(14, 10, 1,  weeks=11, hours = 1, milliseconds=10))""")
+
+    def test_class_attributes(self):
+        self.assertCodeExecution("""
+            from datetime import timedelta
+            print(timedelta(14, 10, 1, weeks=11).days)
+            print(timedelta(14, 10, 1, weeks=11).min)
+            print(timedelta(14, 10, 1, weeks=11).max)
+            print(timedelta(14, 10, 1, weeks=11).resolution)
+            print(timedelta(91, 10, 1).seconds)
+            print(timedelta(14, 10, 1,  weeks=11, hours = 1, milliseconds=10).microseconds)
+        """)
+
+    def test_total_seconds(self):
+        self.assertCodeExecution("""
+            from datetime import timedelta
+            print(timedelta(14, 10, 1, weeks=11).total_seconds())
+        """)
+    
+    def test_addition(self):
+        self.assertCodeExecution("""
+            from datetime import timedelta
+            print(d =(timedelta(14, 10, 1))
+            print(t = (timedelta(17, 2, 100))
+            print(t+d)
+            
+        """)
+    def test_positive(self):
+        self.assertCodeExecution("""
+            from datetime import timedelta
+            print(d =(timedelta(14, 10, 1))
+            print(t = +d)
+        """)

@@ -42,7 +42,9 @@
   <target name="android">
     <ant antfile="build-android.xml" target="dist"/>
   </target>
-
+<target name="junit">
+    <ant antfile="build-java.xml" target="junit"/>
+ </target>
   <target name="all" depends="java, android" />
 
   <target name="upload" depends="java, android" description="Upload assets to S3">
