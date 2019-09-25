@@ -157,7 +157,6 @@ public class TimeDelta extends org.python.types.Object {
 
 
          return new org.python.types.Str("-99999999 days, 0:00:00" );
-
     }
     
     @org.python.Method()
@@ -166,7 +165,6 @@ public class TimeDelta extends org.python.types.Object {
         //String returnStr = ""+ this.days;
         //return this;
         return new org.python.types.Str("99999999 days, 23:59:59.999999" );
-
     }
 
     @org.python.Method()
@@ -175,7 +173,6 @@ public class TimeDelta extends org.python.types.Object {
         //String returnStr = ""+ this.days;
         //return this;
         return new org.python.types.Str("0:00:00.000001" );
-
     }
 
     //TODO get rid of roundup and have float
@@ -238,7 +235,6 @@ public class TimeDelta extends org.python.types.Object {
             TimeDelta TD = new TimeDelta(args, Collections.EMPTY_MAP);
             return TD;
         }
-
 
     public org.python.Object __pos__() {
       //long thisSeconds = ((org.python.types.Int)this.seconds).value;
