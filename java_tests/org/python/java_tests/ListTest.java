@@ -184,6 +184,7 @@ public class ListTest{
     
     	}	
 
+    @Test
     public void test__setItem__() {
     	
     	//Setup: list = [1]
@@ -227,8 +228,6 @@ public class ListTest{
     			);
     	
     	
-    	
-    	
     	//Out of bounds:list = []; list[0] = 5
     	assertThrows(IndexError.class, () -> {
     		//Setup: list = [];
@@ -252,11 +251,253 @@ public class ListTest{
     		org.python.types.Object innerValue = org.python.types.Int.getInt(5);
     		innerlist.__setitem__(innerIndex, innerValue);	
         });
-
-    			
+   	
     	
     }
     
+    @Test
+    public void test_reverse() {
+    	//Setup: list = [1,2,3,4,5];
+    	org.python.types.List list =  new org.python.types.List();
+    	list.append(org.python.types.Int.getInt(1));
+    	list.append(org.python.types.Int.getInt(2));
+    	list.append(org.python.types.Int.getInt(3));
+    	list.append(org.python.types.Int.getInt(4));
+    	list.append(org.python.types.Int.getInt(5));
+    	
+    	list.reverse();
+    	
+    	//Setup Expected list = [5,4,3,2,1];
+    	org.python.types.List expected =  new org.python.types.List();
+    	expected.append(org.python.types.Int.getInt(5));
+    	expected.append(org.python.types.Int.getInt(4));
+    	expected.append(org.python.types.Int.getInt(3));
+    	expected.append(org.python.types.Int.getInt(2));
+    	expected.append(org.python.types.Int.getInt(1));
+    	
+    	assertEquals(
+    			expected.__repr__(),
+    			list.__repr__()
+    			);
+    	
+    }
     
+    @Test
+    public void test_slice() {
+    	//Setup: list = [1,2,3,4,5];
+    	org.python.types.List list =  new org.python.types.List();
+    	list.append(org.python.types.Int.getInt(1));
+    	list.append(org.python.types.Int.getInt(2));
+    	list.append(org.python.types.Int.getInt(3));
+    	list.append(org.python.types.Int.getInt(4));
+    	list.append(org.python.types.Int.getInt(5));
+    	
+    	// Full slice: list[:]
+    	org.python.types.Object start = null;
+    	org.python.types.Object stop = null;
+    	org.python.types.Object step;
+    	org.python.types.Object slice = new org.python.types.Slice(start,stop);
+    	
+    	assertEquals(
+    			list.__repr__(),
+    			list.__getitem__(slice).__repr__()
+    			);
+    	
+    	
+    	//Left bound slice: list[1:]
+    	start = org.python.types.Int.getInt(1);
+    	stop =  null;
+    	slice = new org.python.types.Slice(start,stop);
+    	
+    	//Setup Expected: [2,3,4,5];
+    	org.python.types.List expected =  new org.python.types.List();
+    	expected.append(org.python.types.Int.getInt(2));
+    	expected.append(org.python.types.Int.getInt(3));
+    	expected.append(org.python.types.Int.getInt(4));
+    	expected.append(org.python.types.Int.getInt(5));
+    	
+    	assertEquals(
+    			expected.__repr__(),
+    			list.__getitem__(slice).__repr__()
+    			);
+    	
+    	//Left bound slice: list[:4]
+    	start = null;
+    	stop =  org.python.types.Int.getInt(4);
+    	slice = new org.python.types.Slice(start,stop);
+    	
+    	//Setup Expected: [1,2,3,4];
+    	expected =  new org.python.types.List();
+    	expected.append(org.python.types.Int.getInt(1));
+    	expected.append(org.python.types.Int.getInt(2));
+    	expected.append(org.python.types.Int.getInt(3));
+    	expected.append(org.python.types.Int.getInt(4));
+    	
+    	assertEquals(
+    			expected.__repr__(),
+    			list.__getitem__(slice).__repr__()
+    			);
+    	
+    	
+    	//Slice bound in both directions list[1:4]
+    	start = org.python.types.Int.getInt(1);
+    	stop =  org.python.types.Int.getInt(4);
+    	slice = new org.python.types.Slice(start,stop);
+    	
+    	//Setup Expected: [2,3,4];
+    	expected =  new org.python.types.List();
+    	expected.append(org.python.types.Int.getInt(2));
+    	expected.append(org.python.types.Int.getInt(3));
+    	expected.append(org.python.types.Int.getInt(4));
+    	
+    	assertEquals(
+    			expected.__repr__(),
+    			list.__getitem__(slice).__repr__()
+    			);
+    	
+    	//Slice bound in both directions list[6:7]
+    	start = org.python.types.Int.getInt(6);
+    	stop =  org.python.types.Int.getInt(7);
+    	slice = new org.python.types.Slice(start,stop);
+    	
+    	//Setup Expected: [];
+    	expected =  new org.python.types.List();
+    	assertEquals(
+    			expected.__repr__(),
+    			list.__getitem__(slice).__repr__()
+    			);
+    	
+    }
+    
+    @Test 
+    public void test_slice_with_zero_step() {
+    	//list[1:3:0]
+    	org.python.types.Object start =  org.python.types.Int.getInt(1);
+    	org.python.types.Object stop =  org.python.types.Int.getInt(3);
+    	org.python.types.Object step = org.python.types.Int.getInt(0);
+    	org.python.types.Object slice = new org.python.types.Slice(start, stop, step);
+    	
+    	assertThrows(ValueError.class, () -> {
+    		//Setup: list = [1,2,3,4,5];
+    		org.python.types.List innerlist =  new org.python.types.List();
+      		innerlist.append(org.python.types.Int.getInt(1));
+    		innerlist.append(org.python.types.Int.getInt(2));
+    		innerlist.append(org.python.types.Int.getInt(3));
+    		innerlist.append(org.python.types.Int.getInt(4));
+    		innerlist.append(org.python.types.Int.getInt(5));
+    		
+    		innerlist.__getitem__(slice);	
+        });
+    	
+    }
+    
+    @Test 
+    public void test_slice_with_simple_step() {
+    	//Setup: list = [1,2,3,4,5];
+    	org.python.types.List list = new org.python.types.List();
+    	list.append(org.python.types.Int.getInt(1));
+		list.append(org.python.types.Int.getInt(2));
+		list.append(org.python.types.Int.getInt(3));
+		list.append(org.python.types.Int.getInt(4));
+		list.append(org.python.types.Int.getInt(5));
+    	
+    	//list[::2]
+    	org.python.types.Object start =  null;
+    	org.python.types.Object stop =  null;
+    	org.python.types.Object step = org.python.types.Int.getInt(2);
+    	org.python.types.Object slice = new org.python.types.Slice(start, stop, step);
+    	
+    	
+    	//Setup expected: expected = [1,3,5];
+    	org.python.types.List expected =  new org.python.types.List();
+    	expected.append(org.python.types.Int.getInt(1));
+    	expected.append(org.python.types.Int.getInt(3));
+    	expected.append(org.python.types.Int.getInt(5));
+    
+    	assertEquals(
+    			expected.__repr__(),
+    			list.__getitem__(slice).__repr__()
+    			);
+    	
+    }
+    
+    @Test 
+    public void test_slice_in_reverse() {
+    	//Setup: list = [1,2,3,4,5];
+    	org.python.types.List list = new org.python.types.List();
+    	list.append(org.python.types.Int.getInt(1));
+		list.append(org.python.types.Int.getInt(2));
+		list.append(org.python.types.Int.getInt(3));
+		list.append(org.python.types.Int.getInt(4));
+		list.append(org.python.types.Int.getInt(5));
+    	
+    	//# Full slice with a negative step: list[::-1]
+    	org.python.types.Object start =  null;
+    	org.python.types.Object stop = null;
+    	org.python.types.Object step = org.python.types.Int.getInt(-1);
+    	org.python.types.Object slice = new org.python.types.Slice(start, stop, step);
+    	
+    	
+    	//Setup expected: expected = [5,4,3,2,1];
+    	org.python.types.List expected =  new org.python.types.List();
+    	expected.append(org.python.types.Int.getInt(5));
+    	expected.append(org.python.types.Int.getInt(4));
+    	expected.append(org.python.types.Int.getInt(3));
+    	expected.append(org.python.types.Int.getInt(2));
+    	expected.append(org.python.types.Int.getInt(1));
+    
+    	assertEquals(
+    			expected.__repr__(),
+    			list.__getitem__(slice).__repr__()
+    			);
+    	
+    	
+    	//left bound slice with a negative step : list[4::-2]
+    	start =  org.python.types.Int.getInt(4);
+    	stop = null;
+    	step = org.python.types.Int.getInt(-2);
+    	slice = new org.python.types.Slice(start, stop, step);
+    	
+    	//Setup expected: expected = [5,3,1];
+    	expected =  new org.python.types.List();
+    	expected.append(org.python.types.Int.getInt(5));
+    	expected.append(org.python.types.Int.getInt(3));
+    	expected.append(org.python.types.Int.getInt(1));
+    	
+    
+    	assertEquals(
+    			expected.__repr__(),
+    			list.__getitem__(slice).__repr__()
+    			);
+    	
+    	//Right bound slice with a negative step: list[:4:-1]
+    	start =  null;
+    	stop = org.python.types.Int.getInt(4);
+    	step = org.python.types.Int.getInt(-1);
+    	slice = new org.python.types.Slice(start, stop, step);
+    	
+    	//Setup expected: expected = [];
+    	expected =  new org.python.types.List();
+    	assertEquals(
+    			expected.__repr__(),
+    			list.__getitem__(slice).__repr__()
+    			);
+    	
+    	//Right bound and left bound slice with a negative step: list[1:4:-2]
+    	start =  org.python.types.Int.getInt(1);
+    	stop = org.python.types.Int.getInt(4);
+    	step = org.python.types.Int.getInt(-2);
+    	slice = new org.python.types.Slice(start, stop, step);
+    	
+    	//Setup expected: expected = [];
+    	expected =  new org.python.types.List();
+    	assertEquals(
+    			expected.__repr__(),
+    			list.__getitem__(slice).__repr__()
+    			);
+    	
+    }
+    
+  
 
 }
