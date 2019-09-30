@@ -391,6 +391,7 @@ public class ListTest{
     	
     }
     
+
     @Test 
     public void test_slice_with_simple_step() {
     	//Setup: list = [1,2,3,4,5];
@@ -420,6 +421,108 @@ public class ListTest{
     			);
     	
     }
+
+    @Test
+    public void test__count__() {
+    	org.python.types.List list =  new org.python.types.List();
+    	list.append(org.python.types.Int.getInt(1));
+    	list.append(org.python.types.Int.getInt(1));
+    	list.append(org.python.types.Int.getInt(1));
+    	list.append(org.python.types.Int.getInt(4));
+    	list.append(org.python.types.Int.getInt(5));
+    	
+    	org.python.types.Object expected;
+    	
+    	// Normal Count
+       
+    	
+    	expected=org.python.types.Int.getInt(3);
+    	assertEquals(expected, list.count(org.python.types.Int.getInt(1)));
+    	
+    	// Bool Count
+    	
+    	list.append(org.python.types.Bool.getBool(true));
+    	list.append(org.python.types.Bool.getBool(true));
+    	list.append(org.python.types.Bool.getBool(false));
+    	
+    	expected=org.python.types.Int.getInt(5);
+    	assertEquals(expected, list.count(org.python.types.Int.getInt(1)));
+    	
+    	// Element does not exits
+    	
+    	expected=org.python.types.Int.getInt(0);
+    	assertEquals(expected, list.count(org.python.types.Int.getInt(2)));
+    	
+    }
+    
+     @Test
+     public void test__contains__() {
+    	 
+    	org.python.types.List list =  new org.python.types.List();
+     	list.append(org.python.types.Int.getInt(1));
+     	list.append(org.python.types.Int.getInt(1));
+     	list.append(org.python.types.Int.getInt(1));
+     	list.append(org.python.types.Int.getInt(4));
+     	list.append(org.python.types.Int.getInt(5));
+     	
+     	org.python.types.Object expected;
+     	// Normal contains
+     	expected = org.python.types.Bool.getBool(true);
+     	assertEquals(expected, list.__contains__(org.python.types.Int.getInt(1)));
+    	// Elements does not exist
+     	expected = org.python.types.Bool.getBool(false);
+     	assertEquals(expected, list.__contains__(org.python.types.Int.getInt(0)));
+     	
+    	// Boolean contains 
+     	list.append(org.python.types.Bool.getBool(false)); 
+     	expected = org.python.types.Bool.getBool(true);
+     	assertEquals(expected, list.__contains__(org.python.types.Int.getInt(0)));
+     	
+     }
+    
+     
+   /*  @Test
+     public void test__sort__() {
+    	 
+    	org.python.types.List list =  new org.python.types.List();
+    	org.python.types.List listInt =  new org.python.types.List();
+    	org.python.types.List listStr =  new org.python.types.List();
+    	 
+    	listInt.append(org.python.types.Int.getInt(9));
+      	listInt.append(org.python.types.Int.getInt(4));
+      	listInt.append(org.python.types.Int.getInt(7));
+      	
+      	
+      	listStr.append(new org.python.types.Str("beta"));
+      	listStr.append(new org.python.types.Str("theta"));
+      	listStr.append(new org.python.types.Str("alpha"));
+      	
+      	list.append(listInt);
+      	list.append(listStr);
+      	
+      	org.python.types.List expected =  new org.python.types.List();
+      	org.python.types.List expectedInt =  new org.python.types.List();
+    	org.python.types.List expectedStr =  new org.python.types.List();
+    	
+    	listInt.append(org.python.types.Int.getInt(4));
+      	listInt.append(org.python.types.Int.getInt(7));
+      	listInt.append(org.python.types.Int.getInt(9));
+      	
+      	
+      	listStr.append(new org.python.types.Str("alpha"));
+      	listStr.append(new org.python.types.Str("beta"));
+      	listStr.append(new org.python.types.Str("theta"));
+      	
+      	expected.append(expectedInt);
+      	expected.append(expectedStr);System.out.print(list.sort(org.python.types.NoneType.NONE, org.python.types.Bool.getBool(false)));
+      	assertEquals(expected, list.sort(org.python.types.NoneType.NONE, org.python.types.Bool.getBool(false)));
+    	
+    	
+  
+     }*/
+    	 
+    
+    
     
     @Test 
     public void test_slice_in_reverse() {
