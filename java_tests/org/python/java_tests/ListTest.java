@@ -10,11 +10,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.python.Object;
 import org.python.exceptions.IndexError;
+import org.python.exceptions.TypeError;
 import org.python.exceptions.ValueError;
 
 public class ListTest{
 	
-    @Test
+
+	
+    private static final String True = null;
+
+
+	@Test
     public void testSomething() {
        
    
@@ -69,6 +75,50 @@ public class ListTest{
     		org.python.types.Object innerIndex = org.python.types.Int.getInt(-10);
             list.__getitem__(innerIndex);
         });
+    }
+    
+    //Extends: test_list.py
+    @Test
+    public void  test__getItem__invaildType() {
+    	org.python.types.List list =  new org.python.types.List();
+    	
+    	
+    	
+    	//Setup: list = [1,2,3];
+    	list.append(org.python.types.Int.getInt(1));
+    	list.append(org.python.types.Int.getInt(2));
+    	list.append(org.python.types.Int.getInt(3));
+    	
+    	//list["h"]
+    	assertThrows(TypeError.class, () -> {
+    		org.python.types.Object index = new org.python.types.Str("h");
+            list.__getitem__(index);
+        });
+    }
+    
+    @Test
+    public void  test__getItem__withBool() {
+    	org.python.types.List list =  new org.python.types.List();
+    	org.python.types.Object index;
+    	org.python.types.Object expected;
+    	
+    	
+    	//Setup: list = [1,2,3];
+    	list.append(org.python.types.Int.getInt(1));
+    	list.append(org.python.types.Int.getInt(2));
+    	list.append(org.python.types.Int.getInt(3));
+    	
+    	//list[True] == list[1]
+    	index =  org.python.types.Bool.TRUE;
+    	expected = org.python.types.Int.getInt(1); 
+
+    	assertEquals(list.__getitem__(expected),list.__getitem__(index));
+    	
+    	//list[False] == list[0]
+    	index =  org.python.types.Bool.FALSE;
+    	expected = org.python.types.Int.getInt(0);
+
+    	assertEquals(list.__getitem__(expected),list.__getitem__(index));
     }
     
     @Test
@@ -248,10 +298,45 @@ public class ListTest{
     		org.python.types.Object innerValue = org.python.types.Int.getInt(5);
     		innerlist.__setitem__(innerIndex, innerValue);	
         });
-   	
-    	
     }
+    	@Test
+        public void  test__setItem__withBoolIndex() {
+        	org.python.types.List list =  new org.python.types.List();
+        	org.python.types.Object index;
+        	org.python.types.Object value; 
+        	org.python.types.Object expectedIndex;
+        	
+        	
+        	
+        	//Setup: list = [1,2,3];
+        	list.append(org.python.types.Int.getInt(1));
+        	list.append(org.python.types.Int.getInt(2));
+        	list.append(org.python.types.Int.getInt(3));
+        	
+        	//list[True] = 5 
+        	index =  org.python.types.Bool.TRUE;
+        	value = org.python.types.Int.getInt(5); 
+        	expectedIndex = org.python.types.Int.getInt(1);  
+        	list.__setitem__(index, value);
+        	assertEquals(list.__getitem__(expectedIndex),value);
+        	
+        	//Setup: list = [1,2,3];
+        	list.append(org.python.types.Int.getInt(1));
+        	list.append(org.python.types.Int.getInt(2));
+        	list.append(org.python.types.Int.getInt(3));
+        	
+        	//list[False] = 5 
+        	index =  org.python.types.Bool.FALSE;
+        	value = org.python.types.Int.getInt(5); 
+        	expectedIndex = org.python.types.Int.getInt(0);  
+        	list.__setitem__(index, value);
+        	assertEquals(list.__getitem__(expectedIndex),value);
+   
+    	
+    	}
     
+    
+    	
     @Test
     public void test_reverse() {
     	//Setup: list = [1,2,3,4,5];
@@ -426,6 +511,7 @@ public class ListTest{
     	list.append(org.python.types.Int.getInt(1));
     	list.append(org.python.types.Int.getInt(4));
     	list.append(org.python.types.Int.getInt(5));
+    	
     	
     	org.python.types.Object expected;
     	
@@ -691,15 +777,17 @@ public class ListTest{
      	
    	 expected.append(org.python.types.Int.getInt(2));
      expected.append(org.python.types.Int.getInt(3));
- 
+     //System.out.println(list.pop(org.python.types.Int.getInt(-4)));
+     
+     list.pop(org.python.types.Int.getInt(0));
       	
      	
-      assertEquals(expected, list.pop(org.python.types.Int.getInt(0)));
+      assertEquals(expected, list);
    	 
       // Pop negative index
      	
      	assertThrows(IndexError.class, () -> {
-    		org.python.types.Object innerIndex = org.python.types.Int.getInt(-2);
+    		org.python.types.Object innerIndex = org.python.types.Int.getInt(-4);
             list.pop(innerIndex);
         });
      	
@@ -707,7 +795,7 @@ public class ListTest{
      	
      	org.python.types.List empty =  new org.python.types.List();
      	assertThrows(IndexError.class, () -> {
-    		org.python.types.Object innerIndex = org.python.types.Int.getInt(0);
+    		org.python.types.Object innerIndex = org.python.types.Int.getInt(1);
             empty.pop(innerIndex);
         });
    	    
@@ -733,14 +821,15 @@ public class ListTest{
       assertEquals(list, list.copy());
    	  
       // y = x.copy()
-      // print(x == y)
-      
-      assertTrue(list == list.copy());
-      
-      // y = x.copy()
       // print(x is not y)
       
-      assertTrue(!list.equals(list.copy()));
+      assertTrue(list != list.copy());
+     
+      
+   // y = x.copy()
+    // print(x == y)
+      
+      assertTrue(list.equals(list.copy()));
     }
    	 
 }
