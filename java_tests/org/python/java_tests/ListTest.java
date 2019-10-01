@@ -742,5 +742,9 @@ public class ListTest{
       
       assertTrue(!list.equals(list.copy()));
     }
-   	 
+   	
+    @Test
+    public void test__reversed__() {
+    	
+    }
 }
