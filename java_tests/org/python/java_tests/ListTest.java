@@ -460,8 +460,8 @@ public class ListTest{
     	org.python.types.List list1 =  new org.python.types.List();
     	org.python.types.List list2 =  new org.python.types.List();
     	org.python.Object result;
-    	org.python.types.Bool bool_true = org.python.types.Bool.getBool(1);
-    	org.python.types.Bool bool_false = org.python.types.Bool.getBool(0);
+    	org.python.types.Bool bool_true = org.python.types.Bool.getBool(true);
+    	org.python.types.Bool bool_false = org.python.types.Bool.getBool(false);
     	
     	// [] >= [];
     	result = list1.__ge__(list2);
@@ -494,6 +494,43 @@ public class ListTest{
     	// [1,2,3,2] >= [1,2,3,1]
     	result = list2.__ge__(list1);
     	Assert.assertEquals(bool_true, result);
+    }
+    
+    @Test
+    public void test__eq__() {
+    	org.python.types.List list1 =  new org.python.types.List();
+    	org.python.types.List list2 =  new org.python.types.List();
+    	org.python.Object result;
+    	org.python.types.Bool bool_true = org.python.types.Bool.getBool(true);
+    	org.python.types.Bool bool_false = org.python.types.Bool.getBool(false);
+    	
+    	// [] == [];
+    	result = list1.__eq__(list2);
+    	Assert.assertEquals(bool_true, result);
+    	
+    	// [1,2,3] == [1,2,3]
+    	list1.append(org.python.types.Int.getInt(1));
+    	list1.append(org.python.types.Int.getInt(2));
+    	list1.append(org.python.types.Int.getInt(3));
+    	list2.append(org.python.types.Int.getInt(1));
+    	list2.append(org.python.types.Int.getInt(2));
+    	list2.append(org.python.types.Int.getInt(3));
+    	result = list1.__eq__(list2);
+    	Assert.assertEquals(bool_true, result);
+    	
+    	// [1,2,3] == [1,2,3,2]
+    	list2.append(org.python.types.Int.getInt(2));
+    	result = list1.__eq__(list2);
+    	Assert.assertEquals(bool_false, result);
+
+    	// [1,2,3,1] == [1,2,3,2]
+    	list1.append(org.python.types.Int.getInt(1));
+    	result = list1.__eq__(list2);
+    	Assert.assertEquals(bool_false, result);
+    	
+    	// [1,2,3,2] == [1,2,3,1]
+    	result = list2.__eq__(list1);
+    	Assert.assertEquals(bool_false, result);
     }
 
      @Test
