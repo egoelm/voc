@@ -482,10 +482,18 @@ public class ListTest{
     	result = list1.__ge__(list2);
     	Assert.assertEquals(bool_false, result);
     	
+    	// [1,2,3,2] >= [1,2,3]
+    	result = list2.__ge__(list1);
+    	Assert.assertEquals(bool_true, result);
+    	
     	// [1,2,3,1] >= [1,2,3,2]
     	list1.append(org.python.types.Int.getInt(1));
     	result = list1.__ge__(list2);
     	Assert.assertEquals(bool_false, result);
+    	
+    	// [1,2,3,2] >= [1,2,3,1]
+    	result = list2.__ge__(list1);
+    	Assert.assertEquals(bool_true, result);
     }
 
      @Test
