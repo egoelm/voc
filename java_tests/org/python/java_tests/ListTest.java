@@ -14,9 +14,6 @@ import org.python.exceptions.ValueError;
 
 public class ListTest{
 	
-	
-	
-	
     @Test
     public void testSomething() {
        
@@ -36,7 +33,6 @@ public class ListTest{
     	
     }
     
-   
     @Test
     public void test__getItem__() {
     	org.python.types.List list =  new org.python.types.List();
@@ -153,7 +149,8 @@ public class ListTest{
     
     // dictionary
     //org.python.types.Dict smt = new org.python.types.Dict();
-    	}
+    }
+    
     @Test
     public void test__remove__() {
     	org.python.types.List list =  new org.python.types.List();
@@ -182,8 +179,7 @@ public class ListTest{
 	index = org.python.types.Int.getInt(2);
 	 list.remove(index);
 	assertEquals( fl,list.__getitem__(index));
-    
-    	}	
+    }	
 
     @Test
     public void test__setItem__() {
@@ -392,7 +388,6 @@ public class ListTest{
     	
     }
     
-
     @Test 
     public void test_slice_with_simple_step() {
     	//Setup: list = [1,2,3,4,5];
@@ -534,8 +529,8 @@ public class ListTest{
     	Assert.assertEquals(bool_false, result);
     }
 
-     @Test
-     public void test__contains__() {
+    @Test
+    public void test__contains__() {
     	 
     	org.python.types.List list =  new org.python.types.List();
      	list.append(org.python.types.Int.getInt(1));
@@ -679,8 +674,6 @@ public class ListTest{
  
     }*/
     
-    
-    
     @Test
     public void test_pop() {
    	 
@@ -720,9 +713,6 @@ public class ListTest{
    	    
  
     }
-    
-    
-    
     
     @Test
     public void test_copy() {
