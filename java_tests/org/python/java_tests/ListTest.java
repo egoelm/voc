@@ -1,6 +1,7 @@
 package org.python.java_tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertArrayEquals;
 import java.util.Collections;
 
@@ -480,50 +481,6 @@ public class ListTest{
      	
      }
     
-     
-   /*  @Test
-     public void test__sort__() {
-    	 
-    	org.python.types.List list =  new org.python.types.List();
-    	org.python.types.List listInt =  new org.python.types.List();
-    	org.python.types.List listStr =  new org.python.types.List();
-    	 
-    	listInt.append(org.python.types.Int.getInt(9));
-      	listInt.append(org.python.types.Int.getInt(4));
-      	listInt.append(org.python.types.Int.getInt(7));
-      	
-      	
-      	listStr.append(new org.python.types.Str("beta"));
-      	listStr.append(new org.python.types.Str("theta"));
-      	listStr.append(new org.python.types.Str("alpha"));
-      	
-      	list.append(listInt);
-      	list.append(listStr);
-      	
-      	org.python.types.List expected =  new org.python.types.List();
-      	org.python.types.List expectedInt =  new org.python.types.List();
-    	org.python.types.List expectedStr =  new org.python.types.List();
-    	
-    	listInt.append(org.python.types.Int.getInt(4));
-      	listInt.append(org.python.types.Int.getInt(7));
-      	listInt.append(org.python.types.Int.getInt(9));
-      	
-      	
-      	listStr.append(new org.python.types.Str("alpha"));
-      	listStr.append(new org.python.types.Str("beta"));
-      	listStr.append(new org.python.types.Str("theta"));
-      	
-      	expected.append(expectedInt);
-      	expected.append(expectedStr);System.out.print(list.sort(org.python.types.NoneType.NONE, org.python.types.Bool.getBool(false)));
-      	assertEquals(expected, list.sort(org.python.types.NoneType.NONE, org.python.types.Bool.getBool(false)));
-    	
-    	
-  
-     }*/
-    	 
-    
-    
-    
     @Test 
     public void test_slice_in_reverse() {
     	//Setup: list = [1,2,3,4,5];
@@ -601,6 +558,122 @@ public class ListTest{
     	
     }
     
-  
+   /* @Test
+    public void test__sort__() {
+   	 
+   	org.python.types.List list =  new org.python.types.List();
+   	org.python.types.List listInt =  new org.python.types.List();
+   	org.python.types.List listStr =  new org.python.types.List();
+   	 
+   	listInt.append(org.python.types.Int.getInt(9));
+     	listInt.append(org.python.types.Int.getInt(4));
+     	listInt.append(org.python.types.Int.getInt(7));
+     	
+     	
+     	listStr.append(new org.python.types.Str("beta"));
+     	listStr.append(new org.python.types.Str("theta"));
+     	listStr.append(new org.python.types.Str("alpha"));
+     	
+     	list.append(listInt);
+     	list.append(listStr);
+     	
+     	org.python.types.List expected =  new org.python.types.List();
+     	org.python.types.List expectedInt =  new org.python.types.List();
+   	org.python.types.List expectedStr =  new org.python.types.List();
+   	
+   	expectedInt.append(org.python.types.Int.getInt(4));
+     	expectedInt.append(org.python.types.Int.getInt(7));
+     	expectedInt.append(org.python.types.Int.getInt(9));
+     	
+     	
+     	expectedStr.append(new org.python.types.Str("alpha"));
+     	expectedStr.append(new org.python.types.Str("beta"));
+     	expectedStr.append(new org.python.types.Str("theta"));
+     	
+     	expected.append(expectedInt);
+     	expected.append(expectedStr);
+        
+     	list.sort(null,null);
+    
+     	assertEquals(expected, list);
+   	
+   	
+ 
+    }*/
+    
+    
+    
+    @Test
+    public void test_pop() {
+   	 
+   	org.python.types.List list =  new org.python.types.List();
+   	
+   	 
+   	list.append(org.python.types.Int.getInt(1));
+    list.append(org.python.types.Int.getInt(2));
+    list.append(org.python.types.Int.getInt(3));
+     	
+     	
+    
+     // Normal pop	
+     org.python.types.List expected =  new org.python.types.List();
+     	
+   	 expected.append(org.python.types.Int.getInt(2));
+     expected.append(org.python.types.Int.getInt(3));
+ 
+      	
+     	
+      assertEquals(expected, list.pop(org.python.types.Int.getInt(0)));
+   	 
+      // Pop negative index
+     	
+     	assertThrows(IndexError.class, () -> {
+    		org.python.types.Object innerIndex = org.python.types.Int.getInt(-2);
+            list.pop(innerIndex);
+        });
+     	
+     // Pop empty list
+     	
+     	org.python.types.List empty =  new org.python.types.List();
+     	assertThrows(IndexError.class, () -> {
+    		org.python.types.Object innerIndex = org.python.types.Int.getInt(0);
+            empty.pop(innerIndex);
+        });
+   	    
+ 
+    }
+    
+    
+    
+    
+    @Test
+    public void test_copy() {
+   	 
+   	org.python.types.List list =  new org.python.types.List();
+   	
+   	 
+   	list.append(org.python.types.Int.getInt(1));
+    list.append(org.python.types.Int.getInt(2));
+    list.append(org.python.types.Int.getInt(3));
+     	
+     	
+    
+    
+      // 	y = x.copy()
+      //    print(y)
+     	
+      assertEquals(list, list.copy());
+   	  
+      // y = x.copy()
+      // print(x == y)
+      
+      assertTrue(list == list.copy());
+      
+      // y = x.copy()
+      // print(x is not y)
+      
+      assertTrue(!list.equals(list.copy()));
+    }
+   	 
 
 }
