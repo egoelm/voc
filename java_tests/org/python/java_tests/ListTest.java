@@ -26,7 +26,7 @@ public class ListTest{
     org.python.types.Int year = org.python.types.Int.getInt(9999);
 
     org.python.Object[] args = {year, month, day};
-    System.out.println(args[0]);
+    System.out.println(args[2]);
     org.python.types.List ll;
     Assert.assertTrue(false!=true);
     }
@@ -456,6 +456,84 @@ public class ListTest{
     	
     }
     
+    @Test
+    public void test__ge__() {
+    	org.python.types.List list1 =  new org.python.types.List();
+    	org.python.types.List list2 =  new org.python.types.List();
+    	org.python.Object result;
+    	org.python.types.Bool bool_true = org.python.types.Bool.getBool(true);
+    	org.python.types.Bool bool_false = org.python.types.Bool.getBool(false);
+    	
+    	// [] >= [];
+    	result = list1.__ge__(list2);
+    	Assert.assertEquals(bool_true, result);
+    	
+    	// [1,2,3] >= [1,2,3]
+    	list1.append(org.python.types.Int.getInt(1));
+    	list1.append(org.python.types.Int.getInt(2));
+    	list1.append(org.python.types.Int.getInt(3));
+    	list2.append(org.python.types.Int.getInt(1));
+    	list2.append(org.python.types.Int.getInt(2));
+    	list2.append(org.python.types.Int.getInt(3));
+    	result = list1.__ge__(list2);
+    	Assert.assertEquals(bool_true, result);
+    	
+    	// [1,2,3] >= [1,2,3,2]
+    	list2.append(org.python.types.Int.getInt(2));
+    	result = list1.__ge__(list2);
+    	Assert.assertEquals(bool_false, result);
+    	
+    	// [1,2,3,2] >= [1,2,3]
+    	result = list2.__ge__(list1);
+    	Assert.assertEquals(bool_true, result);
+    	
+    	// [1,2,3,1] >= [1,2,3,2]
+    	list1.append(org.python.types.Int.getInt(1));
+    	result = list1.__ge__(list2);
+    	Assert.assertEquals(bool_false, result);
+    	
+    	// [1,2,3,2] >= [1,2,3,1]
+    	result = list2.__ge__(list1);
+    	Assert.assertEquals(bool_true, result);
+    }
+    
+    @Test
+    public void test__eq__() {
+    	org.python.types.List list1 =  new org.python.types.List();
+    	org.python.types.List list2 =  new org.python.types.List();
+    	org.python.Object result;
+    	org.python.types.Bool bool_true = org.python.types.Bool.getBool(true);
+    	org.python.types.Bool bool_false = org.python.types.Bool.getBool(false);
+    	
+    	// [] == [];
+    	result = list1.__eq__(list2);
+    	Assert.assertEquals(bool_true, result);
+    	
+    	// [1,2,3] == [1,2,3]
+    	list1.append(org.python.types.Int.getInt(1));
+    	list1.append(org.python.types.Int.getInt(2));
+    	list1.append(org.python.types.Int.getInt(3));
+    	list2.append(org.python.types.Int.getInt(1));
+    	list2.append(org.python.types.Int.getInt(2));
+    	list2.append(org.python.types.Int.getInt(3));
+    	result = list1.__eq__(list2);
+    	Assert.assertEquals(bool_true, result);
+    	
+    	// [1,2,3] == [1,2,3,2]
+    	list2.append(org.python.types.Int.getInt(2));
+    	result = list1.__eq__(list2);
+    	Assert.assertEquals(bool_false, result);
+
+    	// [1,2,3,1] == [1,2,3,2]
+    	list1.append(org.python.types.Int.getInt(1));
+    	result = list1.__eq__(list2);
+    	Assert.assertEquals(bool_false, result);
+    	
+    	// [1,2,3,2] == [1,2,3,1]
+    	result = list2.__eq__(list1);
+    	Assert.assertEquals(bool_false, result);
+    }
+
      @Test
      public void test__contains__() {
     	 
@@ -675,5 +753,4 @@ public class ListTest{
       assertTrue(!list.equals(list.copy()));
     }
    	 
-
 }
