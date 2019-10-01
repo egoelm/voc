@@ -77,7 +77,7 @@ public class ListTest{
         });
     }
     
-    //Extends: test_list.py
+    
     @Test
     public void  test__getItem__invaildType() {
     	org.python.types.List list =  new org.python.types.List();
@@ -334,6 +334,26 @@ public class ListTest{
    
     	
     	}
+    	
+
+        @Test
+        public void  test__setItem__invaildType() {
+        	org.python.types.List list =  new org.python.types.List();
+        	
+        	
+        	
+        	//Setup: list = [1,2,3];
+        	list.append(org.python.types.Int.getInt(1));
+        	list.append(org.python.types.Int.getInt(2));
+        	list.append(org.python.types.Int.getInt(3));
+        	
+        	//list["h"] = 3;
+        	assertThrows(TypeError.class, () -> {
+        		org.python.types.Object index = new org.python.types.Str("h");
+        		org.python.types.Object vaule = org.python.types.Int.getInt(3);
+                list.__setitem__(index,vaule);
+            });
+        }
     
     
     	
