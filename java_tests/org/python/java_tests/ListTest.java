@@ -15,8 +15,7 @@ import org.python.exceptions.ValueError;
 
 public class ListTest{
 	
-	
-	
+
 	
     private static final String True = null;
 
@@ -30,7 +29,7 @@ public class ListTest{
     org.python.types.Int year = org.python.types.Int.getInt(9999);
 
     org.python.Object[] args = {year, month, day};
-    System.out.println(args[0]);
+    System.out.println(args[2]);
     org.python.types.List ll;
     Assert.assertTrue(false!=true);
     }
@@ -40,7 +39,6 @@ public class ListTest{
     	
     }
     
-   
     @Test
     public void test__getItem__() {
     	org.python.types.List list =  new org.python.types.List();
@@ -201,7 +199,8 @@ public class ListTest{
     
     // dictionary
     //org.python.types.Dict smt = new org.python.types.Dict();
-    	}
+    }
+    
     @Test
     public void test__remove__() {
     	org.python.types.List list =  new org.python.types.List();
@@ -230,8 +229,7 @@ public class ListTest{
 	index = org.python.types.Int.getInt(2);
 	 list.remove(index);
 	assertEquals( fl,list.__getitem__(index));
-    
-    	}	
+    }	
 
     @Test
     public void test__setItem__() {
@@ -475,7 +473,6 @@ public class ListTest{
     	
     }
     
-
     @Test 
     public void test_slice_with_simple_step() {
     	//Setup: list = [1,2,3,4,5];
@@ -540,8 +537,86 @@ public class ListTest{
     	
     }
     
-     @Test
-     public void test__contains__() {
+    @Test
+    public void test__ge__() {
+    	org.python.types.List list1 =  new org.python.types.List();
+    	org.python.types.List list2 =  new org.python.types.List();
+    	org.python.Object result;
+    	org.python.types.Bool bool_true = org.python.types.Bool.getBool(true);
+    	org.python.types.Bool bool_false = org.python.types.Bool.getBool(false);
+    	
+    	// [] >= [];
+    	result = list1.__ge__(list2);
+    	Assert.assertEquals(bool_true, result);
+    	
+    	// [1,2,3] >= [1,2,3]
+    	list1.append(org.python.types.Int.getInt(1));
+    	list1.append(org.python.types.Int.getInt(2));
+    	list1.append(org.python.types.Int.getInt(3));
+    	list2.append(org.python.types.Int.getInt(1));
+    	list2.append(org.python.types.Int.getInt(2));
+    	list2.append(org.python.types.Int.getInt(3));
+    	result = list1.__ge__(list2);
+    	Assert.assertEquals(bool_true, result);
+    	
+    	// [1,2,3] >= [1,2,3,2]
+    	list2.append(org.python.types.Int.getInt(2));
+    	result = list1.__ge__(list2);
+    	Assert.assertEquals(bool_false, result);
+    	
+    	// [1,2,3,2] >= [1,2,3]
+    	result = list2.__ge__(list1);
+    	Assert.assertEquals(bool_true, result);
+    	
+    	// [1,2,3,1] >= [1,2,3,2]
+    	list1.append(org.python.types.Int.getInt(1));
+    	result = list1.__ge__(list2);
+    	Assert.assertEquals(bool_false, result);
+    	
+    	// [1,2,3,2] >= [1,2,3,1]
+    	result = list2.__ge__(list1);
+    	Assert.assertEquals(bool_true, result);
+    }
+    
+    @Test
+    public void test__eq__() {
+    	org.python.types.List list1 =  new org.python.types.List();
+    	org.python.types.List list2 =  new org.python.types.List();
+    	org.python.Object result;
+    	org.python.types.Bool bool_true = org.python.types.Bool.getBool(true);
+    	org.python.types.Bool bool_false = org.python.types.Bool.getBool(false);
+    	
+    	// [] == [];
+    	result = list1.__eq__(list2);
+    	Assert.assertEquals(bool_true, result);
+    	
+    	// [1,2,3] == [1,2,3]
+    	list1.append(org.python.types.Int.getInt(1));
+    	list1.append(org.python.types.Int.getInt(2));
+    	list1.append(org.python.types.Int.getInt(3));
+    	list2.append(org.python.types.Int.getInt(1));
+    	list2.append(org.python.types.Int.getInt(2));
+    	list2.append(org.python.types.Int.getInt(3));
+    	result = list1.__eq__(list2);
+    	Assert.assertEquals(bool_true, result);
+    	
+    	// [1,2,3] == [1,2,3,2]
+    	list2.append(org.python.types.Int.getInt(2));
+    	result = list1.__eq__(list2);
+    	Assert.assertEquals(bool_false, result);
+
+    	// [1,2,3,1] == [1,2,3,2]
+    	list1.append(org.python.types.Int.getInt(1));
+    	result = list1.__eq__(list2);
+    	Assert.assertEquals(bool_false, result);
+    	
+    	// [1,2,3,2] == [1,2,3,1]
+    	result = list2.__eq__(list1);
+    	Assert.assertEquals(bool_false, result);
+    }
+
+    @Test
+    public void test__contains__() {
     	 
     	org.python.types.List list =  new org.python.types.List();
      	list.append(org.python.types.Int.getInt(1));
@@ -564,50 +639,6 @@ public class ListTest{
      	assertEquals(expected, list.__contains__(org.python.types.Int.getInt(0)));
      	
      }
-    
-     
-   /*  @Test
-     public void test__sort__() {
-    	 
-    	org.python.types.List list =  new org.python.types.List();
-    	org.python.types.List listInt =  new org.python.types.List();
-    	org.python.types.List listStr =  new org.python.types.List();
-    	 
-    	listInt.append(org.python.types.Int.getInt(9));
-      	listInt.append(org.python.types.Int.getInt(4));
-      	listInt.append(org.python.types.Int.getInt(7));
-      	
-      	
-      	listStr.append(new org.python.types.Str("beta"));
-      	listStr.append(new org.python.types.Str("theta"));
-      	listStr.append(new org.python.types.Str("alpha"));
-      	
-      	list.append(listInt);
-      	list.append(listStr);
-      	
-      	org.python.types.List expected =  new org.python.types.List();
-      	org.python.types.List expectedInt =  new org.python.types.List();
-    	org.python.types.List expectedStr =  new org.python.types.List();
-    	
-    	listInt.append(org.python.types.Int.getInt(4));
-      	listInt.append(org.python.types.Int.getInt(7));
-      	listInt.append(org.python.types.Int.getInt(9));
-      	
-      	
-      	listStr.append(new org.python.types.Str("alpha"));
-      	listStr.append(new org.python.types.Str("beta"));
-      	listStr.append(new org.python.types.Str("theta"));
-      	
-      	expected.append(expectedInt);
-      	expected.append(expectedStr);System.out.print(list.sort(org.python.types.NoneType.NONE, org.python.types.Bool.getBool(false)));
-      	assertEquals(expected, list.sort(org.python.types.NoneType.NONE, org.python.types.Bool.getBool(false)));
-    	
-    	
-  
-     }*/
-    	 
-    
-    
     
     @Test 
     public void test_slice_in_reverse() {
@@ -686,6 +717,116 @@ public class ListTest{
     	
     }
     
-  
-
+   /* @Test
+    public void test__sort__() {
+   	 
+   	org.python.types.List list =  new org.python.types.List();
+   	org.python.types.List listInt =  new org.python.types.List();
+   	org.python.types.List listStr =  new org.python.types.List();
+   	 
+   	listInt.append(org.python.types.Int.getInt(9));
+     	listInt.append(org.python.types.Int.getInt(4));
+     	listInt.append(org.python.types.Int.getInt(7));
+     	
+     	
+     	listStr.append(new org.python.types.Str("beta"));
+     	listStr.append(new org.python.types.Str("theta"));
+     	listStr.append(new org.python.types.Str("alpha"));
+     	
+     	list.append(listInt);
+     	list.append(listStr);
+     	
+     	org.python.types.List expected =  new org.python.types.List();
+     	org.python.types.List expectedInt =  new org.python.types.List();
+   	org.python.types.List expectedStr =  new org.python.types.List();
+   	
+   	expectedInt.append(org.python.types.Int.getInt(4));
+     	expectedInt.append(org.python.types.Int.getInt(7));
+     	expectedInt.append(org.python.types.Int.getInt(9));
+     	
+     	
+     	expectedStr.append(new org.python.types.Str("alpha"));
+     	expectedStr.append(new org.python.types.Str("beta"));
+     	expectedStr.append(new org.python.types.Str("theta"));
+     	
+     	expected.append(expectedInt);
+     	expected.append(expectedStr);
+        
+     	list.sort(null,null);
+    
+     	assertEquals(expected, list);
+   	
+   	
+ 
+    }*/
+    
+    @Test
+    public void test_pop() {
+   	 
+   	org.python.types.List list =  new org.python.types.List();
+   	
+   	 
+   	list.append(org.python.types.Int.getInt(1));
+    list.append(org.python.types.Int.getInt(2));
+    list.append(org.python.types.Int.getInt(3));
+     	
+     	
+    
+     // Normal pop	
+     org.python.types.List expected =  new org.python.types.List();
+     	
+   	 expected.append(org.python.types.Int.getInt(2));
+     expected.append(org.python.types.Int.getInt(3));
+ 
+      	
+     	
+      assertEquals(expected, list.pop(org.python.types.Int.getInt(0)));
+   	 
+      // Pop negative index
+     	
+     	assertThrows(IndexError.class, () -> {
+    		org.python.types.Object innerIndex = org.python.types.Int.getInt(-2);
+            list.pop(innerIndex);
+        });
+     	
+     // Pop empty list
+     	
+     	org.python.types.List empty =  new org.python.types.List();
+     	assertThrows(IndexError.class, () -> {
+    		org.python.types.Object innerIndex = org.python.types.Int.getInt(0);
+            empty.pop(innerIndex);
+        });
+   	    
+ 
+    }
+    
+    @Test
+    public void test_copy() {
+   	 
+   	org.python.types.List list =  new org.python.types.List();
+   	
+   	 
+   	list.append(org.python.types.Int.getInt(1));
+    list.append(org.python.types.Int.getInt(2));
+    list.append(org.python.types.Int.getInt(3));
+     	
+     	
+    
+    
+      // 	y = x.copy()
+      //    print(y)
+     	
+      assertEquals(list, list.copy());
+   	  
+      // y = x.copy()
+      // print(x == y)
+      
+      assertTrue(list == list.copy());
+      
+      // y = x.copy()
+      // print(x is not y)
+      
+      assertTrue(!list.equals(list.copy()));
+    }
+   	 
 }
