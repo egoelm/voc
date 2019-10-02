@@ -3,15 +3,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertArrayEquals;
+
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.python.Object;
+import org.python.exceptions.AttributeError;
 import org.python.exceptions.IndexError;
 import org.python.exceptions.TypeError;
 import org.python.exceptions.ValueError;
+
+//import com.sun.tools.javac.util.List;
 
 public class ListTest{
 	
@@ -821,7 +827,6 @@ public class ListTest{
  
     }
     
-    @Test
     public void test_copy() {
    	 
    	org.python.types.List list =  new org.python.types.List();
@@ -867,4 +872,152 @@ public class ListTest{
     	System.out.println(list2);
     	*/
     }
+
+    @Test //extension to original conversion from python tests
+    public void test_creation_args() {
+    	org.python.types.List expected = new org.python.types.List();
+ 		org.python.Object[] args = {null,org.python.types.Int.getInt(2)};
+ 		org.python.types.List list  = new org.python.types.List(args, Collections.emptyMap()); 
+ 		
+ 		assertEquals(expected.__repr__(),list.__repr__());//Test when receiving null
+ 		
+ 		org.python.types.List attr = new org.python.types.List();
+ 		attr.append(org.python.types.Int.getInt(5));
+ 		
+ 		org.python.Object[] args1 = {attr};
+ 		org.python.types.List list1  = new org.python.types.List(args1, Collections.emptyMap());
+ 		
+ 		assertEquals(attr.__repr__(),list1.__repr__());//Test when there is one argument and it is a list  
+  
+ 		org.python.Object a = org.python.types.Int.getInt(5);
+ 		org.python.types.Set set = new org.python.types.Set();
+ 		set.add(a);
+ 		
+ 		org.python.Object[] args2 = {set};
+ 		org.python.types.List list2  = new org.python.types.List(args2, Collections.emptyMap());
+ 		
+ 		assertEquals(attr.__repr__(),list2.__repr__());//Test when there is one argument and it is a set 
+ 		
+ 		
+ 		java.util.List<org.python.Object> t = new ArrayList<org.python.Object>();
+ 		t.add(a);
+ 		
+ 		org.python.types.Tuple tuple = new org.python.types.Tuple(args2,Collections.emptyMap());
+ 
+ 		
+ 		org.python.Object[] args3 = {tuple};
+ 		org.python.types.List list3  = new org.python.types.List(args3, Collections.emptyMap());
+ 		
+ 		assertEquals(attr.__repr__(),list3.__repr__());//Test when there is one argument and it is a tuple
+ 		org.python.types.Str str = new org.python.types.Str("hej");
+ 		org.python.types.Str str1 = new org.python.types.Str("h");
+ 		org.python.types.Str str2 = new org.python.types.Str("e");
+ 		org.python.types.Str str3 = new org.python.types.Str("j");
+ 		
+ 		org.python.Object[] args4 = { str};
+ 		org.python.types.List list4  = new org.python.types.List(args4, Collections.emptyMap());
+ 		
+ 		org.python.types.List attrStr = new org.python.types.List();
+ 		attrStr.append(str1);
+ 		attrStr.append(str2);
+ 		attrStr.append(str3);
+ 		
+ 		assertEquals(attrStr.__repr__(),list4.__repr__());//Test when there is one argument and it is not anything of above
+ 		
+    }
+    
+    @Test(expected = TypeError.class)
+    public void test_creation_exception() {
+    	org.python.types.Str str = new org.python.types.Str("hej");
+ 		org.python.types.Str str1 = new org.python.types.Str("h");
+ 		org.python.Object[] args = {str, str1};
+ 		org.python.types.List list  = new org.python.types.List(args, Collections.emptyMap());
+    }
+    
+    @Test
+    public void test__lt__() {
+    	org.python.types.List list =  new org.python.types.List();
+    	org.python.types.List other =  new org.python.types.List();
+    	org.python.Object result;
+    	org.python.types.Bool bool_true = org.python.types.Bool.getBool(true);
+    	org.python.types.Bool bool_false = org.python.types.Bool.getBool(false);
+    	
+    	// [] < [];
+    	result = list.__lt__(other);
+    	Assert.assertEquals(bool_false, result);
+    	
+    	// [1,2,3] < [1,2,3]
+    	list.append(org.python.types.Int.getInt(1));
+    	list.append(org.python.types.Int.getInt(2));
+    	list.append(org.python.types.Int.getInt(3));
+    	
+    	other.append(org.python.types.Int.getInt(1));
+    	other.append(org.python.types.Int.getInt(2));
+    	other.append(org.python.types.Int.getInt(3));
+    	
+    	result = list.__lt__(other);
+    	Assert.assertEquals(bool_false, result);
+    	
+    	// [1,2,3] < [1,2,3,1]
+    	other.append(org.python.types.Int.getInt(1));
+    	result = list.__lt__(other);
+    	Assert.assertEquals(bool_true, result);
+    	
+    	// [1,2,3,1] < [1,2,3]
+    	result = other.__lt__(list);
+    	Assert.assertEquals(bool_false, result);
+    	
+    	// [1,2,3,2] < [1,2,3,1]
+    	list.append(org.python.types.Int.getInt(2));
+    	result = list.__lt__(other);
+    	Assert.assertEquals(bool_false, result);
+    	
+    	// [1,2,3,1] < [1,2,3,2]
+    	result = other.__lt__(list);
+    	Assert.assertEquals(bool_true, result);
+    }
+    
+    @Test
+    public void test__gt__() {
+    	org.python.types.List list =  new org.python.types.List();
+    	org.python.types.List other =  new org.python.types.List();
+    	org.python.Object result;
+    	org.python.types.Bool bool_true = org.python.types.Bool.getBool(true);
+    	org.python.types.Bool bool_false = org.python.types.Bool.getBool(false);
+    	
+    	// [] > [];
+    	result = list.__gt__(other);
+    	Assert.assertEquals(bool_false, result);
+    	
+    	// [1,2,3] > [1,2,3]
+    	list.append(org.python.types.Int.getInt(1));
+    	list.append(org.python.types.Int.getInt(2));
+    	list.append(org.python.types.Int.getInt(3));
+    	
+    	other.append(org.python.types.Int.getInt(1));
+    	other.append(org.python.types.Int.getInt(2));
+    	other.append(org.python.types.Int.getInt(3));
+    	
+    	result = list.__gt__(other);
+    	Assert.assertEquals(bool_false, result);
+    	
+    	// [1,2,3] > [1,2,3,1]
+    	other.append(org.python.types.Int.getInt(1));
+    	result = list.__gt__(other);
+    	Assert.assertEquals(bool_false, result);
+    	
+    	// [1,2,3,1] > [1,2,3]
+    	result = other.__gt__(list);
+    	Assert.assertEquals(bool_true, result);
+    	
+    	// [1,2,3,2] > [1,2,3,1]
+    	list.append(org.python.types.Int.getInt(2));
+    	result = list.__gt__(other);
+    	Assert.assertEquals(bool_true, result);
+    	
+    	// [1,2,3,1] > [1,2,3,2]
+    	result = other.__gt__(list);
+    	Assert.assertEquals(bool_false, result);
+    }
+
 }
