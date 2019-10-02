@@ -853,6 +853,18 @@ public class ListTest{
    	
     @Test
     public void test__reversed__() {
+    	/*
+    	org.python.types.List list1 =  new org.python.types.List();
+    	org.python.types.List list2 =  new org.python.types.List();
     	
+    	// list1 = [1,2,3];
+    	list1.append(org.python.types.Int.getInt(1));
+    	list1.append(org.python.types.Int.getInt(2));
+    	list1.append(org.python.types.Int.getInt(3));
+    	
+    	list2 = list1.__reversed__();
+    	
+    	System.out.println(list2);
+    	*/
     }
 }
