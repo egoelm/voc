@@ -257,6 +257,43 @@ public class ListTest{
     	
     }
     
+    @Test
+    public void test__lt__() {
+    	org.python.types.List list =  new org.python.types.List();
+    	org.python.types.List other =  new org.python.types.List();
+    	
+    	//list = [1, 2, 3, 4, 5]
+    	list.append(org.python.types.Int.getInt(1));
+    	list.append(org.python.types.Int.getInt(2));
+    	list.append(org.python.types.Int.getInt(3));
+    	list.append(org.python.types.Int.getInt(4));
+    	list.append(org.python.types.Int.getInt(5));
+    	
+    	//other = [1, 2, 3, 4, 5]
+    	other.append(org.python.types.Int.getInt(1));
+    	other.append(org.python.types.Int.getInt(2));
+    	other.append(org.python.types.Int.getInt(3));
+    	other.append(org.python.types.Int.getInt(4));
+    	other.append(org.python.types.Int.getInt(5));
+    	
+    	//check with identical 
+    	org.python.Object result = (list.__lt__(other));
+    	
+    	//Assert.assertEquals("False", result);
+    	
+    	//ensure rich comparison logic is used
+    	
+    	//when elements are non-identical, return that comparison, even if size is not
+    	
+    	//ensure tie breaker by size is still used when identical elements
+    	
+    	//If other isn't instance of list
+    	/*assertThrows(IndexError.class, () -> {
+    		});*/
+    	 
+       
+    }
+    
     
 
 }
