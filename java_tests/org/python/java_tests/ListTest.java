@@ -987,19 +987,27 @@ public class ListTest{
    	
     @Test
     public void test__reversed__() {
-    	/*
     	org.python.types.List list1 =  new org.python.types.List();
     	org.python.types.List list2 =  new org.python.types.List();
     	
-    	// list1 = [1,2,3];
+    	// list1 = [1,2,3,4]; list2 = [4,3,2,1];
     	list1.append(org.python.types.Int.getInt(1));
     	list1.append(org.python.types.Int.getInt(2));
     	list1.append(org.python.types.Int.getInt(3));
+    	list1.append(org.python.types.Int.getInt(4));
+    	list2.append(org.python.types.Int.getInt(4));
+    	list2.append(org.python.types.Int.getInt(3));
+    	list2.append(org.python.types.Int.getInt(2));
+    	list2.append(org.python.types.Int.getInt(1));
     	
-    	list2 = list1.__reversed__();
+    	org.python.Object list1_rev = list1.__reversed__();
+    	org.python.Object list2_iter = list2.__iter__();
     	
-    	System.out.println(list2);
-    	*/
+    	for (int i = 0; i < 4; i++) {
+    		org.python.Object item1 = list1_rev.__next__();
+    		org.python.Object item2 = list2_iter.__next__();
+    		assertEquals(item1, item2);
+    	}
     }
 
     @Test //extension to original conversion from python tests
