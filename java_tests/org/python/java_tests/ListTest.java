@@ -1148,5 +1148,23 @@ public class ListTest{
     	result = other.__gt__(list);
     	Assert.assertEquals(bool_false, result);
     }
+    
+    @Test
+    public void test__len__() {
+    	//setup: [1,2,3] 
+    	org.python.types.List list = new org.python.types.List();
+    	list.append(org.python.types.Int.getInt(1));
+    	list.append(org.python.types.Int.getInt(2));
+    	list.append(org.python.types.Int.getInt(3));
+    	Assert.assertEquals(3,((org.python.types.Int)list.__len__()).value);
+    	
+    	
+    	//setup: []
+    	list = new org.python.types.List();
+    	Assert.assertEquals(0,((org.python.types.Int)list.__len__()).value);
+    	
+    }
+    
+    
 
 }
