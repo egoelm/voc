@@ -20,7 +20,6 @@ public class Add {
 		}
 		
     	
-    	System.out.println(list.__len__());
     	System.out.println("Time in seconds " + (totalTime/runs)/1000);
 		
 	}
