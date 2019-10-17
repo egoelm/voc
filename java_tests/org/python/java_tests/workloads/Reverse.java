@@ -3,7 +3,7 @@ package org.python.java_tests.workloads;
 public class Reverse {
 	
 	private static org.python.Object workload(org.python.types.List list) {
-		for(int i = 0; i < 1000 ; i++) {
+		for(int i = 0; i < 4000 ; i++) {
 			list.reverse();
 		}
 		return list;
