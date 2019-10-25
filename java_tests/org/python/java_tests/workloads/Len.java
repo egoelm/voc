@@ -17,6 +17,6 @@ public class Len {
 			totalTime += System.currentTimeMillis() - startTime;
 		}
 
-    	System.out.println("Time in seconds " + (totalTime/runs)/1000);
+    	System.out.println("Time in miliseconds " + (totalTime/runs));
 	}
 }

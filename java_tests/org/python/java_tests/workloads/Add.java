@@ -3,7 +3,7 @@ package org.python.java_tests.workloads;
 public class Add {
 	public static void main(String[] args){
 		long totalTime = 0;
-		int runs = 5;
+		long runs = 5;
 		long startTime; 
 		org.python.types.List list = null;
 		
@@ -20,7 +20,7 @@ public class Add {
 		}
 		
     	
-    	System.out.println("Time in seconds " + (totalTime/runs)/1000);
+    	System.out.println("Time in miliseconds " + (totalTime/runs));
 		
 	}
 }
